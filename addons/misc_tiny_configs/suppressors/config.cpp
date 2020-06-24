@@ -12,8 +12,7 @@ class CfgPatches {
             "A3_Weapons_F_Acc",
             "A3_Weapons_F_Mark_Acc",
             "A3_Weapons_F_Exp",
-            "A3_Weapons_F_Mod",
-            "ace_ballistics"  /* muzzle_snds_* overrides */
+            "A3_Weapons_F_Mod"
         };
     };
 };

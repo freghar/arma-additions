@@ -7,8 +7,7 @@ class CfgPatches {
         units[] = {};
         weapons[] = {};
         requiredAddons[] = {
-            "A3_Characters_F",
-            "ace_movement"
+            "A3_Characters_F"
         };
     };
 };

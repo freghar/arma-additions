@@ -9,8 +9,7 @@ class CfgPatches {
         units[] = {};
         weapons[] = {};
         requiredAddons[] = {
-            "A3_Weapons_F",
-            "ace_grenades"     // overwrites flare intensity
+            "A3_Weapons_F"
         };
     };
 };
