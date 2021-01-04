@@ -123,6 +123,7 @@ Features
   * **rhs_flashlighs** - like bright_flashlight tweak for WMX/2DP RHS flashlights (some guns don't take vanilla flashlight)
   * **rhs_suppressors** - like suppressors tweak, but for rhs M4/AK/etc. suppressors
   * **rhs_vanilla_ammo** - like smoke_bounce tweak, by making RHS UGLs use vanilla shells (when fired, not magazines)
+  * **sight_alignment** - introduce more pronounced iron sight / red dot misalignment when moving the weapon around
   * **silent_op** - a special "Silent Operative" unit (under CIV)
     * has much quieter footstep sounds and is nearly invisible to AI without NVGs during dusk/dawn/night
     * highly trained, can hack UAVs, is medic/engineer, can bury bodies like in Operation Flashpoint!
