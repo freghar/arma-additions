@@ -3,7 +3,7 @@ if (isClass (configFile >> "CfgPatches" >> "ace_interaction")) exitWith {};
 getCursorObjectParams params ["_obj", "_selections", "_radius"];
 if (isNull _obj || _selections isEqualTo []) exitWith {};
 
-private _house_actions = (configFile >> "CfgVehicles" >> typeOf _obj >> "UserActions");
+private _house_actions = (configOf _obj >> "UserActions");
 if (!isClass _house_actions) exitWith {};
 
 _selections = _selections apply { toLower _x };

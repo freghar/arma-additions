@@ -41,9 +41,7 @@ private _is_engi = {
 private _get_icon = {
     switch (a3aa_map_trackers_unit_iconsource) do {
         case "class": {
-            private _icon = getText (
-                configFile >> "CfgVehicles" >> typeOf _this >> "icon"
-            );
+            private _icon = getText (configOf _this >> "icon");
             if (_icon == "") then { "iconMan" } else { _icon };
         };
         case "guess": {

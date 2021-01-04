@@ -62,7 +62,7 @@ private _group_type = {
         if (_x select 4) then { objNull } else { _x select 0 };
     };
     _type = if (!isNull objectParent _leader && _leader in _crew) then {
-        private _cfg = configFile >> "CfgVehicles" >> typeOf _veh;
+        private _cfg = configOf _veh;
         private _infotype = getText (_cfg >> "unitInfoType");
         private _vclass = getText (_cfg >> "vehicleClass");
         private _edcat = getText (_cfg >> "editorSubcategory");

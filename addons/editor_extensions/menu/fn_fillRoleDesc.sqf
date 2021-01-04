@@ -9,7 +9,7 @@ if (!is3DEN) exitWith {};
 private "_desc";
 {
     /* start with unit displayName */
-    _desc = getText (configFile >> "CfgVehicles" >> typeOf _x >> "displayName");
+    _desc = getText (configOf _x >> "displayName");
     if (_desc isEqualTo "") then { _desc = typeOf _x };
     /* prepend group callsign */
     _desc = format ["%1, %2", groupId group _x, _desc];

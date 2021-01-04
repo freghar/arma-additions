@@ -27,10 +27,9 @@ private _pick_random_glasses = {
     configName selectRandom _usable;
 };
 
-private _this_cfg = configFile >> "CfgVehicles" >> typeOf _this;
 private _is_repair_truck = {
-    (getNumber (_this_cfg >> "transportRepair") > 0) ||
-    {getNumber (_this_cfg >> "ace_repair_canRepair") > 0}
+    (getNumber (configOf _this >> "transportRepair") > 0) ||
+    {getNumber (configOf _this >> "ace_repair_canRepair") > 0}
 };
 
 if (_this isKindOf "Car") then {
