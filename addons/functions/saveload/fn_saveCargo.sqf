@@ -89,7 +89,7 @@ private _packs = [] call a3aa_fnc_hashInit;
         (_x select [count _x - 1, 1]) params ["_underbarrel"];
 
         /* add magazine bullets - if the weapon has at least 1 magazine */
-        if (!(_weapmags isEqualTo [[]])) then {
+        if (_weapmags isNotEqualTo [[]]) then {
             {
                 _x params ["_class", "_bullets"];
                 [_bmags, _class, _bullets] call a3aa_fnc_hashCntIncrement;

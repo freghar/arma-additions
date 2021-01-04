@@ -46,7 +46,7 @@ private _get_icon = {
         };
         case "guess": {
             private _mags = getArray (configFile >> "CfgWeapons" >> primaryWeapon _this >> "magazines");
-            private _bulletcnt = if (!(_mags isEqualTo [])) then {
+            private _bulletcnt = if (_mags isNotEqualTo []) then {
                 getNumber (configFile >> "CfgMagazines" >> (_mags select 0) >> "count");
             } else {};
             switch true do {
@@ -99,7 +99,7 @@ waitUntil {
      * blue lines
      */
     private _lines = [];
-    if (a3aa_map_trackers_unit_showlines && !(_units isEqualTo [])) then {
+    if (a3aa_map_trackers_unit_showlines && _units isNotEqualTo []) then {
         private _leader = leader group player;
         private _sources = (units group player) select {
             _x != _leader && {player distance _x < _dist};

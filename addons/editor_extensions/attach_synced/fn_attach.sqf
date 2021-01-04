@@ -7,7 +7,7 @@ if (is3DEN) exitWith {};
      */
     waitUntil {
         !isNil { synchronizedObjects _this } &&
-            !(synchronizedObjects _this isEqualTo []);
+            (synchronizedObjects _this isNotEqualTo []);
     };
 
     private _synced = synchronizedObjects _this;

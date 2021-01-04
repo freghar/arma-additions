@@ -13,7 +13,7 @@ if (_parsed_list isEqualTo []) exitWith {};
 
 waitUntil {
     !isNil { synchronizedObjects _this } &&
-        !(synchronizedObjects _this isEqualTo []);
+        (synchronizedObjects _this isNotEqualTo []);
 };
 private _synced_soldiers = (synchronizedObjects _this) select {
     _x isKindOf "CAManBase";

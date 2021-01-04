@@ -22,4 +22,4 @@ if (_reference isEqualType "") then {
 
 private _parents = [_cfg, true] call BIS_fnc_returnParents;
 
-!((_reference arrayIntersect _parents) isEqualTo []);
+(_reference arrayIntersect _parents) isNotEqualTo [];

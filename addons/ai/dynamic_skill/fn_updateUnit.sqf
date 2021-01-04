@@ -10,7 +10,7 @@ if (!alive _this || !simulationEnabled _this || _this in allPlayers) exitWith {}
  */
 private _previous = _this getVariable "a3aa_ai_dynamic_skill_prevskills";
 private _current = _this call a3aa_ai_dynamic_skill_fnc_getSkills;
-if (!isNil "_previous" && {!(_previous isEqualTo _current)}) exitWith {
+if (!isNil "_previous" && {_previous isNotEqualTo _current}) exitWith {
     a3aa_ai_dynamic_skill_units
         deleteAt (a3aa_ai_dynamic_skill_units find _this);
 };

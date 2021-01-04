@@ -83,6 +83,6 @@ a3aa_ares_extras_confim_EH = _display displayAddEventHandler ["KeyDown",
     };
 }];
 
-if (!(_msg isEqualTo "")) then {
+if (_msg isNotEqualTo "") then {
     [_msg, "action"] call a3aa_ares_extras_fnc_curatorMsg;
 };
