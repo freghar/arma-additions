@@ -19,6 +19,7 @@ class CfgPatches {
         displayName = QUOTE(CONCAT2(name, flag)); \
         texture = QUOTE(CONCAT3(\A3\ui_f\data\map\markers\flags\,name,_ca.paa)); \
         textureVehicle = ""; \
+        material = "\A3\Ui_f\data\GUI\Cfg\UnitInsignia\default_insignia.rvmat"; \
     }
 
 class CfgUnitInsignia {
