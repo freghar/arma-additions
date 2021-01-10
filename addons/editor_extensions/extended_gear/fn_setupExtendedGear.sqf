@@ -13,7 +13,8 @@ private _face = player getVariable ["a3aa_ee_extended_gear_face", ""];
 
 /* default to player insignia */
 if (_insignia == "" && a3aa_ee_extended_gear_useprofile) then {
-    _insignia = profileNamespace getVariable ["a3aa_ee_extended_gear_player_insignia", ""];
+    _insignia = a3aa_ee_extended_gear_player_insignia;
+    a3aa_ee_extended_gear_player_insignia_used = true;
 };
 
 /* anything to do? */

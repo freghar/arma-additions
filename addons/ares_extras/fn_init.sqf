@@ -333,50 +333,6 @@ if (isNil "Ares_fnc_RegisterCustomModule") exitWith {};
     }
 ] call Ares_fnc_RegisterCustomModule;
 
-[
-    "Development Tools",
-    "Set player insignia (in profile)",
-    {
-        params ["_pos", "_unit"];
-        if (isNil "_unit" || {isNull _unit || !isPlayer _unit}) exitWith {
-            ["Not placed on a player unit."] call Ares_fnc_ShowZeusMessage;
-        };
-
-        private _cfgs = "true" configClasses (configFile >> "CfgUnitInsignia");
-        private _names = ["None"] + (_cfgs apply { getText (_x >> "displayName") });
-        private _values = [""] + (_cfgs apply { configName _x });
-
-        private _defidx = 0;
-        private _defclass = profileNamespace getVariable "a3aa_ee_extended_gear_player_insignia";
-        if (!isNil "_defclass") then {
-            if (_values find _defclass != -1) then {
-                _defidx = _values find _defclass;
-            };
-        };
-
-        private _reply = [
-            "Set player insignia (profile variable)",
-            [
-                ["Insignia", _names, _defidx, true]
-            ]
-        ] call Ares_fnc_showChooseDialog;
-        if (_reply isEqualTo []) exitWith {};
-        private _class = _values select (_reply select 0);
-
-        if (_class == "") then {
-            /* remove insignia */
-            {
-                profileNamespace setVariable ["a3aa_ee_extended_gear_player_insignia", nil];
-            } remoteExec ["call", _unit];
-        } else {
-            /* set insignia */
-            [_class, {
-                profileNamespace setVariable ["a3aa_ee_extended_gear_player_insignia", _this];
-            }] remoteExec ["call", _unit];
-        };
-    }
-] call Ares_fnc_RegisterCustomModule;
-
 /*
  * Environment
  */

@@ -20,6 +20,7 @@ class CfgFunctions {
             class face;
             class setupExtendedGear;
             class init;
+            class collectCfgInsigniaAsSettings;
         };
     };
 };
