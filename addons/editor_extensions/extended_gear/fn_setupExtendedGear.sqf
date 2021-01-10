@@ -17,9 +17,6 @@ if (_insignia == "" && a3aa_ee_extended_gear_useprofile) then {
     a3aa_ee_extended_gear_player_insignia_used = true;
 };
 
-/* anything to do? */
-if (_goggles == "" && _insignia == "" && _face == "") exitWith {};
-
 if (_goggles != "") then {
     private _saved_goggles = _goggles;
     if (_goggles == "None") then {
@@ -82,10 +79,12 @@ player addEventHandler ["Respawn", {
      * re-assigned goggles/face from what the player originally had
      * - just wait (a bit) and re-set it to our values
      */
-    0 = _corpse spawn {
-        sleep 0.5;
-        removeGoggles _this;
-        _this addGoggles goggles player;
-        _this setFace face player;
+    if (_goggles != "" || _face != "") then {
+        0 = _corpse spawn {
+            sleep 0.5;
+            removeGoggles _this;
+            _this addGoggles goggles player;
+            _this setFace face player;
+        };
     };
 }];
