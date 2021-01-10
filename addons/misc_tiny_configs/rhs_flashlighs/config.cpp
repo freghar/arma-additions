@@ -3,6 +3,8 @@
  */
 
 class CfgPatches {
+    //TODO: rename to a3aa_mtc_rhs_flashlights after some time
+    //      (after missions drop requiredaddon dep)
     class a3aa_mtc_rhs_map_flashlights {
         units[] = {};
         weapons[] = {};
@@ -10,6 +12,7 @@ class CfgPatches {
             "rhs_c_weapons",    // rhs_acc_2dpZenit
             "rhsusf_c_weapons"  // rhsusf_acc_M952V
         };
+        addonRootClass = "rhsusf_c_weapons";
     };
 };
 
