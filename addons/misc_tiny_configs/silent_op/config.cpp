@@ -4,7 +4,10 @@
 
 class CfgPatches {
     class a3aa_mtc_silent_op {
-        units[] = { "a3aa_silent_ops_silent_operative" };
+        units[] = {
+            "a3aa_silent_ops_silent_operative",
+            "a3aa_silent_ops_silent_expert"
+        };
         weapons[] = {};
         magazines[] = {};
         requiredAddons[] = {
@@ -20,15 +23,8 @@ class CfgVehicles {
         side = 3;  /* allows using any uniforms */
         faction = "CIV_F";
         displayName = "Silent Operative";
-
         camouflage = 0.3;
         audible = 0.002;
-        attendant = 1;
-        engineer = 1;
-        uavHacker = 1;
-        canDeactivateMines = 1;
-        canHideBodies = 1;
-
         /*
          * I should actually just re-define all of the 9000 sounds, but with lower
          * volume .. though it would be a lot of variables to break on Arma update.
@@ -37,5 +33,13 @@ class CfgVehicles {
          */
         class SoundEnvironExt {};
         class SoundGear {};
+    };
+    class a3aa_silent_ops_silent_expert : a3aa_silent_ops_silent_operative {
+        displayName = "Silent Operative (Expert)";
+        attendant = 1;
+        engineer = 1;
+        uavHacker = 1;
+        canDeactivateMines = 1;
+        canHideBodies = 1;
     };
 };
