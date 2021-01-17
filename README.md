@@ -12,7 +12,6 @@ Versions
 --------
 
 1. Full (CBA + ACE3 + RHSAFRF + RHSUSAF required) - [steam link](https://steamcommunity.com/sharedfiles/filedetails/?id=1470700937)
-1. ACE only (CBA + ACE3 required) - [steam link](https://steamcommunity.com/sharedfiles/filedetails/?id=2140874311)
 1. RHS only (CBA + RHSAFRF + RHSUSAF required) - [steam link](https://steamcommunity.com/sharedfiles/filedetails/?id=2140875197)
 1. Vanilla edition (only CBA required) - [steam link](https://steamcommunity.com/sharedfiles/filedetails/?id=1470811778)
 
@@ -25,7 +24,6 @@ See further below for ACE compatibility notes.
 
 To build:
 1. Full - just use master
-1. ACE only - merge in the `norhs` branch
 1. RHS only - merge in the `noace` branch
 1. Vanilla edition - merge in both `norhs` and `noace`
 
