@@ -13,6 +13,8 @@ class CfgFunctions {
         class all {
             file = "\a3aa\ares_extras";
             class init { postInit = 1; };
+            class curatorMsg;
+            class confirm;
         };
         class task_force {
             file = "\a3aa\ares_extras\task_force";
