@@ -34,16 +34,17 @@
 
 params ["_msg", "_code"];
 
+disableSerialization;
+private _display = findDisplay IDD_RSCDISPLAYCURATOR;
+if (isNull _display) exitWith {};
+
 if (_code isEqualType []) then {
     a3aa_ares_extras_confim_codearg = _code select 0;
     a3aa_ares_extras_confim_code = _code select 1;
 } else {
+    a3aa_ares_extras_confim_codearg = nil;
     a3aa_ares_extras_confim_code = _code;
 };
-
-disableSerialization;
-private _display = findDisplay IDD_RSCDISPLAYCURATOR;
-if (isNull _display) exitWith {};
 
 /* another confirmation in progress */
 if (!isNil "a3aa_ares_extras_confim_EH") then {
