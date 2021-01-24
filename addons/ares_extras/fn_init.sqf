@@ -8,57 +8,36 @@ if (isNil "zen_custom_modules_fnc_register") exitWith {};
     "A3AA",
     "Forget enemies",
     {
-        ["Select units.", {
-            private _units = curatorSelected select 0;
-            if (_units isEqualTo []) exitWith {
-                ["No units selected.", "cancel"]
-                    call a3aa_ares_extras_fnc_curatorMsg;
-            };
+        [_this select 1, "Select units.", {
             {
                 [_x, {
                     { _this forgetTarget _x } forEach (_this targets [true]);
                 }] remoteExec ["call", _x];
-            } forEach _units;
-        }] call a3aa_ares_extras_fnc_confirm;
-    }
+            } forEach _this;
+        }] call a3aa_ares_extras_fnc_selectUnits;
+    },
+    "\a3\Modules_F_Curator\Data\portraitSmoke_ca.paa"
 ] call zen_custom_modules_fnc_register;
 
 [
     "A3AA",
     "Reveal enemies",
     {
-        ["Select to-be-revealed units.", {
-            private _revealed = curatorSelected select 0;
-            if (_revealed isEqualTo []) exitWith {
-                ["No units selected.", "cancel"]
-                    call a3aa_ares_extras_fnc_curatorMsg;
-            };
-            ["Select groups that should be informed.", [_revealed, {
-                private _revealed = _this;
-                private _informed_units = curatorSelected select 0;
-                private _informed = [];
-                {
-                    _informed pushBackUnique group _x;
-                } forEach (_informed_units select { alive _x });
-                if (_informed isEqualTo []) exitWith {
-                    ["No groups with alive units selected.", "cancel"]
-                        call a3aa_ares_extras_fnc_curatorMsg;
-                };
-                [
-                    [_revealed, _informed],
+        [_this select 1, "Select to-be-revealed units.", {
+            [objNull, "Select to-be-informed groups.", [_this, {
+                [_this, {
+                    params ["_informed", "_revealed"];
                     {
-                        params ["_revealed", "_informed"];
+                        private _toinform = _x;
                         {
-                            private _toinform = _x;
-                            {
-                                _toinform reveal _x;
-                            } forEach _revealed;
-                        } forEach _informed;
-                    }
-                ] remoteExec ["call"];  /* reveal has local effect, see wiki */
-            }]] call a3aa_ares_extras_fnc_confirm;
-        }] call a3aa_ares_extras_fnc_confirm;
-    }
+                            _toinform reveal _x;
+                        } forEach _revealed;
+                    } forEach _informed;
+                }] remoteExec ["call"];  /* reveal is EL, see wiki */
+            }], "groups"] call a3aa_ares_extras_fnc_selectUnits;
+        }] call a3aa_ares_extras_fnc_selectUnits;
+    },
+    "\a3\3DEN\Data\CfgWaypoints\SeekAndDestroy_ca.paa"
 ] call zen_custom_modules_fnc_register;
 
 [
@@ -70,55 +49,37 @@ if (isNil "zen_custom_modules_fnc_register") exitWith {};
         if (isNil "_unit" || isNull _unit) then {
             _dst = _pos;  /* use pos as dst */
         };
-        ["Select watcher units.", [_dst, {
-            private _dst = _this;
-            private _units = curatorSelected select 0;
-            if (_units isEqualTo []) exitWith {
-                ["No units selected.", "cancel"]
-                    call a3aa_ares_extras_fnc_curatorMsg;
-            };
+        [objNull, "Select watcher units.", [_dst, {
+            params ["_units", "_dst"];
             {
                 [[_x, _dst], {
                     params ["_unit", "_dst"];
                     _unit doWatch _dst;
                 }] remoteExec ["call", _x];
             } forEach _units;
-        }]] call a3aa_ares_extras_fnc_confirm;
-    }
+        }]] call a3aa_ares_extras_fnc_selectUnits;
+    },
+    "\a3\Ui_f\data\IGUI\Cfg\simpleTasks\types\scout_ca.paa"
 ] call zen_custom_modules_fnc_register;
 
 [
     "A3AA",
     "No unload in combat",
     {
-        ["Select vehicles.", {
-            private _units = curatorSelected select 0;
-            _units = _units select {
-                _x isKindOf "Tank" || _x isKindOf "Car" || _x isKindOf "Ship";
-            };
-            if (_units isEqualTo []) exitWith {
-                ["No vehicles selected.", "cancel"]
-                    call a3aa_ares_extras_fnc_curatorMsg;
-            };
+        [_this select 1, "Select vehicles.", {
             {
                 [_x, false, false] remoteExec ["setUnloadInCombat", _x];
-            } forEach _units;
-        }] call a3aa_ares_extras_fnc_confirm;
-    }
+            } forEach _this;
+        }, "vehicles"] call a3aa_ares_extras_fnc_selectUnits;
+    },
+    "\a3\Ui_f\data\IGUI\Cfg\simpleTasks\types\car_ca.paa"
 ] call zen_custom_modules_fnc_register;
 
 [
     "A3AA",
     "Flee",
     {
-        ["Select groups.", {
-            private _units = curatorSelected select 0;
-            private _groups = [];
-            { _groups pushBackUnique group _x } forEach _units;
-            if (_groups isEqualTo []) exitWith {
-                ["No groups selected.", "cancel"]
-                    call a3aa_ares_extras_fnc_curatorMsg;
-            };
+        [_this select 1, "Select groups.", {
             {
                 [_x, {
                     private _isfleeing = _this getVariable "a3aa_ares_extras_fleeing";
@@ -148,9 +109,10 @@ if (isNil "zen_custom_modules_fnc_register") exitWith {};
                         _this setVariable ["a3aa_ares_extras_fleeing", true, true];
                     };
                 }] remoteExec ["call", leader _x];
-            } forEach _groups;
-        }] call a3aa_ares_extras_fnc_confirm;
-    }
+            } forEach _this;
+        }, "groups"] call a3aa_ares_extras_fnc_selectUnits;
+    },
+    "\a3\Modules_F_Tacops\Data\CivilianPresenceUnit\icon32_ca.paa"
 ] call zen_custom_modules_fnc_register;
 
 [
@@ -162,13 +124,8 @@ if (isNil "zen_custom_modules_fnc_register") exitWith {};
         if (isNil "_unit" || isNull _unit) then {
             _dst = _pos;  /* use pos as dst */
         };
-        ["Select sources (soldiers/vehicles).", [_dst, {
-            private _dst = _this;
-            private _units = curatorSelected select 0;
-            if (_units isEqualTo []) exitWith {
-                ["No units selected.", "cancel"]
-                    call a3aa_ares_extras_fnc_curatorMsg;
-            };
+        [objNull, "Select sources (soldiers/vehicles).", [_dst, {
+            params ["_units", "_dst"];
             /* doSuppressiveFire doesn't work well on position */
             if (!(_dst isEqualType objNull)) then {
                 _dst = createVehicle ["Land_HelipadEmpty_F", ASLToATL _dst,
@@ -182,42 +139,28 @@ if (isNil "zen_custom_modules_fnc_register") exitWith {};
                     _src doSuppressiveFire _dst;
                 }] remoteExec ["call", _x];
             } forEach _units;
-        }]] call a3aa_ares_extras_fnc_confirm;
-    }
+        }]] call a3aa_ares_extras_fnc_selectUnits;
+    },
+    "\a3\Ui_f\data\IGUI\Cfg\simpleTasks\types\kill_ca.paa"
 ] call zen_custom_modules_fnc_register;
 
 [
     "A3AA",
     "Assign Task Force",
     {
-        ["Select TF member groups.", {
-            private _units = curatorSelected select 0;
-            private _groups = [];
-            { _groups pushBackUnique group _x } forEach _units;
-            if (_groups isEqualTo []) exitWith {
-                ["No groups selected.", "cancel"]
-                    call a3aa_ares_extras_fnc_curatorMsg;
-            };
-            if (count _groups < 1) exitWith {};
-            _groups call a3aa_ares_extras_fnc_assignTaskForce;
-        }] call a3aa_ares_extras_fnc_confirm;
-    }
+        [objNull, "Select TF member groups.", {
+            _this call a3aa_ares_extras_fnc_assignTaskForce;
+        }, "groups"] call a3aa_ares_extras_fnc_selectUnits;
+    },
+    "\a3\Ui_f\data\IGUI\Cfg\simpleTasks\types\meet_ca.paa"
 ] call zen_custom_modules_fnc_register;
 
 [
     "A3AA",
     "Force WP Setting",
     {
-        ["Select groups.", {
-            private _units = curatorSelected select 0;
-            private _groups = [];
-            { _groups pushBackUnique group _x } forEach _units;
-            if (_groups isEqualTo []) exitWith {
-                ["No groups selected.", "cancel"]
-                    call a3aa_ares_extras_fnc_curatorMsg;
-            };
-            if (count _groups < 1) exitWith {};
-            [_groups, {
+        [_this select 1, "Select groups.", {
+            [_this, {
                 {
                     {
                         _x setWaypointForceBehaviour true;
@@ -225,40 +168,39 @@ if (isNil "zen_custom_modules_fnc_register") exitWith {};
                     } forEach waypoints _x;
                 } forEach _this;
             }] remoteExec ["call", 2];
-        }] call a3aa_ares_extras_fnc_confirm;
-    }
+        }] call a3aa_ares_extras_fnc_selectUnits;
+    },
+    "\a3\3DEN\Data\CfgWaypoints\Move_ca.paa"
 ] call zen_custom_modules_fnc_register;
 
 [
     "A3AA",
     "No Talking",
     {
-        ["Select units.", {
-            private _units = curatorSelected select 0;
-            if (_units isEqualTo []) exitWith {
-                ["No units selected.", "cancel"]
-                    call a3aa_ares_extras_fnc_curatorMsg;
-            };
+        [_this select 1, "Select units.", {
             {
                 [_x, "NoVoice"] remoteExec ["setSpeaker", 0, _x];
-            } forEach _units;
-        }] call a3aa_ares_extras_fnc_confirm;
-    }
+            } forEach _this;
+        }] call a3aa_ares_extras_fnc_selectUnits;
+    },
+    "\a3\Ui_f\data\IGUI\Cfg\simpleTasks\types\talk_ca.paa"
+] call zen_custom_modules_fnc_register;
+
+[
+    "A3AA",
+    "Locality - Get",
+    {
+        [_this select 1, "Select units.", {
+            [_this, {
+                private _owners = _this apply { owner _x };
+                (str _owners) remoteExec ["systemChat", remoteExecutedOwner];
+            }] remoteExec ["call", 2];
+        }] call a3aa_ares_extras_fnc_selectUnits;
+    },
+    "\a3\ui_f\data\map\vehicleicons\iconVirtual_ca.paa"
 ] call zen_custom_modules_fnc_register;
 
 #ifdef not_ported_over_yet
-[
-    "Development Tools",
-    "[U] Locality - Get",
-    {
-        params ["_pos", "_unit"];
-        if (isNull _unit) exitWith {};
-        [_unit, {
-            format ["%1 local to %2", _this, owner _this]
-                remoteExec ["systemChat", remoteExecutedOwner];
-        }] remoteExec ["call", 2];
-    }
-] call zen_custom_modules_fnc_register;
 [
     "Development Tools",
     "[G] Locality - Set",
@@ -390,46 +332,57 @@ if (isNil "zen_custom_modules_fnc_register") exitWith {};
             nil,
             _pos
         ] call zen_dialog_fnc_create;
-    }
+    },
+    "\a3\Modules_F\Data\HideTerrainObjects\icon32_ca.paa"
 ] call zen_custom_modules_fnc_register;
 
-#ifdef not_ported_over_yet
 [
-    "Players",
+    "A3AA",
     "Set new player unit",
     {
         params ["_pos", "_unit"];
-        if (isNil "_unit" || isNull _unit) exitWith {
-            ["No unit selected."] call Ares_fnc_ShowZeusMessage;
+        if (isNull _unit) exitWith {
+            ["No unit selected.", "cancel"]
+                call a3aa_ares_extras_fnc_curatorMsg;
         };
         if (!(_unit isKindOf "CAManBase")) exitWith {
-            ["Unit is not a soldier."] call Ares_fnc_ShowZeusMessage;
+            ["Unit is not a soldier.", "cancel"]
+                call a3aa_ares_extras_fnc_curatorMsg;
         };
 
-        a3aa_ares_extras_collected_clients = [];
-        {
-            [[clientOwner, profileName], {
-                a3aa_ares_extras_collected_clients pushBack _this;
-            }] remoteExec ["call", remoteExecutedOwner];
-        } remoteExec ["call"];
-        sleep 1;
-        a3aa_ares_extras_collected_clients sort true;
+        /* because we need to wait for all clients to report in */
+        0 = _unit spawn {
+            params ["_unit"];
 
-        private _clients = a3aa_ares_extras_collected_clients apply { _x select 0 };
-        private _names = a3aa_ares_extras_collected_clients apply { _x select 1 };
-        private _reply = [
-            "Set new player unit",
+            a3aa_ares_extras_collected_clients = [];
+            {
+                [[clientOwner, profileName], {
+                    a3aa_ares_extras_collected_clients pushBack _this;
+                }] remoteExec ["call", remoteExecutedOwner];
+            } remoteExec ["call"];
+            sleep 1;
+            a3aa_ares_extras_collected_clients sort true;
+
+            private _clients = a3aa_ares_extras_collected_clients apply { _x select 0 };
+            private _names = a3aa_ares_extras_collected_clients apply { _x select 1 };
+            disableSerialization;
             [
-                ["Choose client", _names]
-            ]
-        ] call Ares_fnc_showChooseDialog;
-        if (_reply isEqualTo []) exitWith {};
-        private _client = _clients select (_reply select 0);
-
-        _unit remoteExec ["selectPlayer", _client];
-    }
-] call Ares_fnc_RegisterCustomModule;
-#endif
+                "Set new player unit",
+                [
+                    ["LIST", "For client", [_clients, _names, 0]]
+                ],
+                {
+                    params ["_dialog_data", "_unit"];
+                    _dialog_data params ["_client"];
+                    _unit remoteExec ["selectPlayer", _client];
+                },
+                nil,
+                _unit
+            ] call zen_dialog_fnc_create;
+        };
+    },
+    "\a3\Ui_f\data\Map\VehicleIcons\iconMan_ca.paa"
+] call zen_custom_modules_fnc_register;
 
 [
     "A3AA",
@@ -437,7 +390,8 @@ if (isNil "zen_custom_modules_fnc_register") exitWith {};
     {
         { ["stop", cntr_exportPath] call cntr_fnc_export } remoteExecCall ["call", 2];
         ["end1", true] remoteExec ["BIS_fnc_endMission"];
-    }
+    },
+    "\a3\Modules_F_Curator\Data\portraitEndMission_ca.paa"
 ] call zen_custom_modules_fnc_register;
 [
     "A3AA",
@@ -445,7 +399,8 @@ if (isNil "zen_custom_modules_fnc_register") exitWith {};
     {
         { ["stop", cntr_exportPath] call cntr_fnc_export } remoteExecCall ["call", 2];
         ["end1", false] remoteExec ["BIS_fnc_endMission"];
-    }
+    },
+    "\a3\Modules_F_Curator\Data\portraitEndMission_ca.paa"
 ] call zen_custom_modules_fnc_register;
 
 [
@@ -458,7 +413,8 @@ if (isNil "zen_custom_modules_fnc_register") exitWith {};
         } else {
             "respawn" setMarkerPos _pos;
         };
-    }
+    },
+    "\a3\Missions_F_Curator\data\img\portraitMPTypeSectorControl_ca.paa"
 ] call zen_custom_modules_fnc_register;
 [
     "A3AA",
@@ -470,7 +426,8 @@ if (isNil "zen_custom_modules_fnc_register") exitWith {};
         } else {
             "respawn_west" setMarkerPos _pos;
         };
-    }
+    },
+    "\a3\Missions_F_Curator\data\img\portraitMPTypeSectorControl_ca.paa"
 ] call zen_custom_modules_fnc_register;
 [
     "A3AA",
@@ -482,7 +439,8 @@ if (isNil "zen_custom_modules_fnc_register") exitWith {};
         } else {
             "respawn_east" setMarkerPos _pos;
         };
-    }
+    },
+    "\a3\Missions_F_Curator\data\img\portraitMPTypeSectorControl_ca.paa"
 ] call zen_custom_modules_fnc_register;
 [
     "A3AA",
@@ -496,7 +454,8 @@ if (isNil "zen_custom_modules_fnc_register") exitWith {};
             "respawn_guerilla" setMarkerPos _pos;
             "respawn_guerrilla" setMarkerPos _pos;
         };
-    }
+    },
+    "\a3\Missions_F_Curator\data\img\portraitMPTypeSectorControl_ca.paa"
 ] call zen_custom_modules_fnc_register;
 [
     "A3AA",
@@ -508,7 +467,8 @@ if (isNil "zen_custom_modules_fnc_register") exitWith {};
         } else {
             "respawn_civilian" setMarkerPos _pos;
         };
-    }
+    },
+    "\a3\Missions_F_Curator\data\img\portraitMPTypeSectorControl_ca.paa"
 ] call zen_custom_modules_fnc_register;
 
 [
@@ -526,20 +486,17 @@ if (isNil "zen_custom_modules_fnc_register") exitWith {};
             a3aa_ee_teleport_on_jip_pos = _pos;
             publicVariable "a3aa_ee_teleport_on_jip_pos";
         };
-    }
+    },
+    "\a3\Missions_F_Curator\data\img\portraitMPTypeSectorControl_ca.paa"
 ] call zen_custom_modules_fnc_register;
 
 [
     "A3AA",
     "Delete units (really)",
     {
-        ["Select units.", {
-            private _units = curatorSelected select 0;
-            if (_units isEqualTo []) exitWith {
-                ["No units selected.", "cancel"]
-                    call a3aa_ares_extras_fnc_curatorMsg;
-            };
-            { deleteVehicle _x } forEach _units;
-        }] call a3aa_ares_extras_fnc_confirm;
-    }
+        [_this select 1, "Select units to delete.", {
+            { deleteVehicle _x } forEach _this;
+        }] call a3aa_ares_extras_fnc_selectUnits;
+    },
+    "\a3\Ui_f\data\IGUI\Cfg\simpleTasks\types\danger_ca.paa"
 ] call zen_custom_modules_fnc_register;

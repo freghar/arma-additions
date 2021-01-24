@@ -15,6 +15,8 @@ class CfgFunctions {
             class init { postInit = 1; };
             class curatorMsg;
             class confirm;
+            class selectUnits;
+            class selectUnitsSelected;
         };
         class task_force {
             file = "\a3aa\ares_extras\task_force";
