@@ -1,229 +1,252 @@
 /*
- * register custom modules/functions in Ares
+ * register custom modules/functions in Zeus Enhanced (ZEN)
  */
 
-if (isNil "Ares_fnc_RegisterCustomModule") exitWith {};
-
-/*
- * AI Behaviour
- */
+if (isNil "zen_custom_modules_fnc_register") exitWith {};
 
 [
-    "AI Behaviour",
-    "[U] Forget enemies",
+    "A3AA",
+    "Forget enemies",
     {
-        private _units = [_this select 1];
-        if (objNull in _units) then {
-            _units = ["units"] call Achilles_fnc_SelectUnits;
-        };
-        if (isNil "_units") exitWith {};
-        {
-            [_x, {
-                { _this forgetTarget _x } forEach (_this targets [true]);
-            }] remoteExec ["call", _x];
-        } forEach _units;
-    }
-] call Ares_fnc_RegisterCustomModule;
-
-[
-    "AI Behaviour",
-    "[U] Reveal enemies",
-    {
-        private _revealed = [_this select 1];
-        if (objNull in _revealed) then {
-            _revealed = ["to-be-revealed units"] call Achilles_fnc_SelectUnits;
-        };
-        if (isNil "_revealed") exitWith {};
-        private _informed_units = ["groups to be informed"] call Achilles_fnc_SelectUnits;
-        if (isNil "_informed_units") exitWith {};
-        private _informed = [];
-        { _informed pushBackUnique group _x } forEach (_informed_units select { alive _x });
-        [
-            [_revealed, _informed],
+        ["Select units.", {
+            private _units = curatorSelected select 0;
+            if (_units isEqualTo []) exitWith {
+                ["No units selected.", "cancel"]
+                    call a3aa_ares_extras_fnc_curatorMsg;
+            };
             {
-                params ["_revealed", "_informed"];
+                [_x, {
+                    { _this forgetTarget _x } forEach (_this targets [true]);
+                }] remoteExec ["call", _x];
+            } forEach _units;
+        }] call a3aa_ares_extras_fnc_confirm;
+    }
+] call zen_custom_modules_fnc_register;
+
+[
+    "A3AA",
+    "Reveal enemies",
+    {
+        ["Select to-be-revealed units.", {
+            private _revealed = curatorSelected select 0;
+            if (_revealed isEqualTo []) exitWith {
+                ["No units selected.", "cancel"]
+                    call a3aa_ares_extras_fnc_curatorMsg;
+            };
+            ["Select groups that should be informed.", [_revealed, {
+                private _revealed = _this;
+                private _informed_units = curatorSelected select 0;
+                private _informed = [];
                 {
-                    private _toinform = _x;
-                    {
-                        _toinform reveal _x;
-                    } forEach _revealed;
-                } forEach _informed;
-            }
-        ] remoteExec ["call"];  /* reveal has local effect, see wiki */
-    }
-] call Ares_fnc_RegisterCustomModule;
-
-[
-    "AI Behaviour",
-    "[U] Watch",
-    {
-        params ["_pos", "_unit"];
-        private _dst = _unit;
-        if (isNil "_unit" || isNull _unit) then {
-            _dst = _pos;  /* use pos as dst */
-        };
-        private _watchers = ["watchers"] call Achilles_fnc_SelectUnits;
-        if (isNil "_watchers") exitWith {};
-        {
-            [[_x,_dst], {
-                params ["_unit", "_dst"];
-                _unit doWatch _dst;
-            }] remoteExec ["call", _x];
-        } forEach _watchers;
-    }
-] call Ares_fnc_RegisterCustomModule;
-
-[
-    "AI Behaviour",
-    "[U] No unload in combat",
-    {
-        private _units = [_this select 1];
-        if (objNull in _units) then {
-            _units = ["vehicles"] call Achilles_fnc_SelectUnits;
-        };
-        if (isNil "_units") exitWith {};
-        {
-            [_x, false, false] remoteExec ["setUnloadInCombat", _x];
-        } forEach (_units apply { vehicle _x });
-    }
-] call Ares_fnc_RegisterCustomModule;
-
-[
-    "AI Behaviour",
-    "[G] Flee",
-    {
-        private _units = [_this select 1];
-        if (objNull in _units) then {
-            _units = ["groups"] call Achilles_fnc_SelectUnits;
-        };
-        if (isNil "_units") exitWith {};
-        private _groups = [];
-        { _groups pushBackUnique group _x } forEach _units;
-        {
-            [_x, {
-                private _isfleeing = _this getVariable "a3aa_ares_extras_fleeing";
-                if (isNil "_isfleeing") then {
-                    {
-                        _x setUnitPos "UP";
-                        _x disableAI "AUTOCOMBAT";
-                        _x disableAI "AUTOTARGET";
-                        _x disableAI "TARGET";
-                        _x disableAI "SUPPRESSION";
-                        {
-                            _this forgetTarget _x;
-                        } forEach (_x targets []);
-                    } forEach units _this;
-                    _this setBehaviour "AWARE";
-                    _this setSpeedMode "FULL";
-                    _this spawn {
-                        sleep 120;
-                        {
-                            _x enableAI "AUTOCOMBAT";
-                            _x enableAI "AUTOTARGET";
-                            _x enableAI "TARGET";
-                            _x enableAI "SUPPRESSION";
-                        } forEach units _this;
-                        _this setVariable ["a3aa_ares_extras_fleeing", nil, true];
-                    };
-                    _this setVariable ["a3aa_ares_extras_fleeing", true, true];
+                    _informed pushBackUnique group _x;
+                } forEach (_informed_units select { alive _x });
+                if (_informed isEqualTo []) exitWith {
+                    ["No groups with alive units selected.", "cancel"]
+                        call a3aa_ares_extras_fnc_curatorMsg;
                 };
-            }] remoteExec ["call", leader _x];
-        } forEach _groups;
+                [
+                    [_revealed, _informed],
+                    {
+                        params ["_revealed", "_informed"];
+                        {
+                            private _toinform = _x;
+                            {
+                                _toinform reveal _x;
+                            } forEach _revealed;
+                        } forEach _informed;
+                    }
+                ] remoteExec ["call"];  /* reveal has local effect, see wiki */
+            }]] call a3aa_ares_extras_fnc_confirm;
+        }] call a3aa_ares_extras_fnc_confirm;
     }
-] call Ares_fnc_RegisterCustomModule;
+] call zen_custom_modules_fnc_register;
 
 [
-    "AI Behaviour",
-    "[U] Suppress (bis)",
+    "A3AA",
+    "Watch",
     {
         params ["_pos", "_unit"];
         private _dst = _unit;
         if (isNil "_unit" || isNull _unit) then {
             _dst = _pos;  /* use pos as dst */
         };
-        private _units = ["suppression sources"] call Achilles_fnc_SelectUnits;
-        if (isNil "_units") exitWith {};
-        {
-            [[_x, _dst], {
-                params ["_src", "_dst"];
-                if (_dst isEqualType objNull) then { _src reveal _dst };
-                _src doSuppressiveFire _dst;
-            }] remoteExec ["call", _x];
-        } forEach _units;
+        ["Select watcher units.", [_dst, {
+            private _dst = _this;
+            private _units = curatorSelected select 0;
+            if (_units isEqualTo []) exitWith {
+                ["No units selected.", "cancel"]
+                    call a3aa_ares_extras_fnc_curatorMsg;
+            };
+            {
+                [[_x, _dst], {
+                    params ["_unit", "_dst"];
+                    _unit doWatch _dst;
+                }] remoteExec ["call", _x];
+            } forEach _units;
+        }]] call a3aa_ares_extras_fnc_confirm;
     }
-] call Ares_fnc_RegisterCustomModule;
+] call zen_custom_modules_fnc_register;
 
 [
-    "AI Behaviour",
-    "[G] Assign Task Force",
+    "A3AA",
+    "No unload in combat",
     {
-        params ["_pos", "_unit"];
-        private _groups = [group _unit];
-        if (grpNull in _groups) then {
-            private _units = ["task force member groups"] call Achilles_fnc_SelectUnits;
-            _groups = [];
+        ["Select vehicles.", {
+            private _units = curatorSelected select 0;
+            _units = _units select {
+                _x isKindOf "Tank" || _x isKindOf "Car" || _x isKindOf "Ship";
+            };
+            if (_units isEqualTo []) exitWith {
+                ["No vehicles selected.", "cancel"]
+                    call a3aa_ares_extras_fnc_curatorMsg;
+            };
             {
-                _groups pushBackUnique group _x;
+                [_x, false, false] remoteExec ["setUnloadInCombat", _x];
             } forEach _units;
-        };
-        if (count _groups < 1) exitWith {};
-        _groups call a3aa_ares_extras_fnc_assignTaskForce;
+        }] call a3aa_ares_extras_fnc_confirm;
     }
-] call Ares_fnc_RegisterCustomModule;
+] call zen_custom_modules_fnc_register;
 
 [
-    "AI Behaviour",
-    "[G] Force WP Setting",
+    "A3AA",
+    "Flee",
+    {
+        ["Select groups.", {
+            private _units = curatorSelected select 0;
+            private _groups = [];
+            { _groups pushBackUnique group _x } forEach _units;
+            if (_groups isEqualTo []) exitWith {
+                ["No groups selected.", "cancel"]
+                    call a3aa_ares_extras_fnc_curatorMsg;
+            };
+            {
+                [_x, {
+                    private _isfleeing = _this getVariable "a3aa_ares_extras_fleeing";
+                    if (isNil "_isfleeing") then {
+                        {
+                            _x setUnitPos "UP";
+                            _x disableAI "AUTOCOMBAT";
+                            _x disableAI "AUTOTARGET";
+                            _x disableAI "TARGET";
+                            _x disableAI "SUPPRESSION";
+                            {
+                                _this forgetTarget _x;
+                            } forEach (_x targets []);
+                        } forEach units _this;
+                        _this setBehaviour "AWARE";
+                        _this setSpeedMode "FULL";
+                        _this spawn {
+                            sleep 120;
+                            {
+                                _x enableAI "AUTOCOMBAT";
+                                _x enableAI "AUTOTARGET";
+                                _x enableAI "TARGET";
+                                _x enableAI "SUPPRESSION";
+                            } forEach units _this;
+                            _this setVariable ["a3aa_ares_extras_fleeing", nil, true];
+                        };
+                        _this setVariable ["a3aa_ares_extras_fleeing", true, true];
+                    };
+                }] remoteExec ["call", leader _x];
+            } forEach _groups;
+        }] call a3aa_ares_extras_fnc_confirm;
+    }
+] call zen_custom_modules_fnc_register;
+
+[
+    "A3AA",
+    "Suppress (bis)",
     {
         params ["_pos", "_unit"];
-        private _groups = [group _unit];
-        if (grpNull in _groups) then {
-            private _units = ["groups to force WPs on"] call Achilles_fnc_SelectUnits;
-            _groups = [];
-            {
-                _groups pushBackUnique group _x;
-            } forEach _units;
+        private _dst = _unit;
+        if (isNil "_unit" || isNull _unit) then {
+            _dst = _pos;  /* use pos as dst */
         };
-        if (count _groups < 1) exitWith {};
-        [_groups, {
+        ["Select sources (soldiers/vehicles).", [_dst, {
+            private _dst = _this;
+            private _units = curatorSelected select 0;
+            if (_units isEqualTo []) exitWith {
+                ["No units selected.", "cancel"]
+                    call a3aa_ares_extras_fnc_curatorMsg;
+            };
+            /* doSuppressiveFire doesn't work well on position */
+            if (!(_dst isEqualType objNull)) then {
+                _dst = createVehicle ["Land_HelipadEmpty_F", ASLToATL _dst,
+                                      [], 0, "CAN_COLLIDE"];
+                0 = _dst spawn { sleep 30; deleteVehicle _this; };
+            };
             {
+                [[_x, _dst], {
+                    params ["_src", "_dst"];
+                    _src reveal _dst;
+                    _src doSuppressiveFire _dst;
+                }] remoteExec ["call", _x];
+            } forEach _units;
+        }]] call a3aa_ares_extras_fnc_confirm;
+    }
+] call zen_custom_modules_fnc_register;
+
+[
+    "A3AA",
+    "Assign Task Force",
+    {
+        ["Select TF member groups.", {
+            private _units = curatorSelected select 0;
+            private _groups = [];
+            { _groups pushBackUnique group _x } forEach _units;
+            if (_groups isEqualTo []) exitWith {
+                ["No groups selected.", "cancel"]
+                    call a3aa_ares_extras_fnc_curatorMsg;
+            };
+            if (count _groups < 1) exitWith {};
+            _groups call a3aa_ares_extras_fnc_assignTaskForce;
+        }] call a3aa_ares_extras_fnc_confirm;
+    }
+] call zen_custom_modules_fnc_register;
+
+[
+    "A3AA",
+    "Force WP Setting",
+    {
+        ["Select groups.", {
+            private _units = curatorSelected select 0;
+            private _groups = [];
+            { _groups pushBackUnique group _x } forEach _units;
+            if (_groups isEqualTo []) exitWith {
+                ["No groups selected.", "cancel"]
+                    call a3aa_ares_extras_fnc_curatorMsg;
+            };
+            if (count _groups < 1) exitWith {};
+            [_groups, {
                 {
-                    _x setWaypointForceBehaviour true;
-                    _x setWaypointBehaviour "AWARE";
-                } forEach waypoints _x;
-            } forEach _this;
-        }] remoteExec ["call", 2];
+                    {
+                        _x setWaypointForceBehaviour true;
+                        _x setWaypointBehaviour "AWARE";
+                    } forEach waypoints _x;
+                } forEach _this;
+            }] remoteExec ["call", 2];
+        }] call a3aa_ares_extras_fnc_confirm;
     }
-] call Ares_fnc_RegisterCustomModule;
+] call zen_custom_modules_fnc_register;
 
 [
-    "AI Behaviour",
-    "[G] No Talking",
+    "A3AA",
+    "No Talking",
     {
-        params ["_pos", "_unit"];
-        private _groups = [group _unit];
-        if (grpNull in _groups) then {
-            private _units = ["groups to shut up"] call Achilles_fnc_SelectUnits;
-            _groups = [];
+        ["Select units.", {
+            private _units = curatorSelected select 0;
+            if (_units isEqualTo []) exitWith {
+                ["No units selected.", "cancel"]
+                    call a3aa_ares_extras_fnc_curatorMsg;
+            };
             {
-                _groups pushBackUnique group _x;
+                [_x, "NoVoice"] remoteExec ["setSpeaker", 0, _x];
             } forEach _units;
-        };
-        if (count _groups < 1) exitWith {};
-        [_groups, {
-            {
-                {
-                    _x setSpeaker "NoVoice";
-                } forEach units _x;
-            } forEach _this;
-        }] remoteExec ["call"];
+        }] call a3aa_ares_extras_fnc_confirm;
     }
-] call Ares_fnc_RegisterCustomModule;
+] call zen_custom_modules_fnc_register;
 
-/*
- * Development Tools
- */
-
+#ifdef not_ported_over_yet
 [
     "Development Tools",
     "[U] Locality - Get",
@@ -235,7 +258,7 @@ if (isNil "Ares_fnc_RegisterCustomModule") exitWith {};
                 remoteExec ["systemChat", remoteExecutedOwner];
         }] remoteExec ["call", 2];
     }
-] call Ares_fnc_RegisterCustomModule;
+] call zen_custom_modules_fnc_register;
 [
     "Development Tools",
     "[G] Locality - Set",
@@ -306,8 +329,10 @@ if (isNil "Ares_fnc_RegisterCustomModule") exitWith {};
             "Locality transfer done." remoteExec ["systemChat", remoteExecutedOwner];
         }] remoteExec ["spawn", 2];
     }
-] call Ares_fnc_RegisterCustomModule;
+] call zen_custom_modules_fnc_register;
+#endif
 
+#ifdef not_ported_over_yet
 [
     "Development Tools",
     "Give Zeus to player (may crash)",
@@ -332,49 +357,43 @@ if (isNil "Ares_fnc_RegisterCustomModule") exitWith {};
         }] remoteExec ["call", 2];
     }
 ] call Ares_fnc_RegisterCustomModule;
-
-/*
- * Environment
- */
+#endif
 
 [
-    "Environment",
-    "[P] Terrain Objects Hide/Show",
+    "A3AA",
+    "Terrain Objects Hide/Show",
     {
         params ["_pos", "_unit"];
-
-        private _values = [1,5,10,100,500,1000,5000];
-        private _names = _values apply {
-            format ["Within radius of %1 m", _x];
-        };
-
-        private _reply = [
+        [
             "Hide/Show Terrain Objects",
             [
-                ["Distance", _names],
-                ["Hide/Show", ["Hide","Show"]]
-            ]
-        ] call Ares_fnc_showChooseDialog;
-        if (_reply isEqualTo []) exitWith {};
-        private _radius = _values select (_reply select 0);
-        private _hide = switch (_reply select 1) do {
-            case 0: { true };
-            case 1: { false };
-        };
-
-        [[_pos, _radius, _hide], {
-            params ["_pos", "_radius", "_hide"];
+                ["LIST", "Within radius of", [
+                    [1,5,10,100,500,1000,5000],
+                    ["1m","5m","10m","100m","500m","1000m","5000m"],
+                    2,
+                    8
+                ]],
+                ["EDIT:CODE", ["Object types", '"tree","small tree","bush","building","house",etc.\nsee BI wiki for nearestTerainObjects'], ["[]", {}, 1]],
+                ["CHECKBOX", "Hide (uncheck to show)", [true]]
+            ],
             {
-                _x hideObjectGlobal _hide;
-            } count nearestTerrainObjects [_pos, [], _radius, false, true];
-        }] remoteExec ["call", 2];
+                params ["_dialog_data", "_pos"];
+                _dialog_data params ["_radius", "_types", "_hide"];
+                _types = parseSimpleArray _types;
+                [[_pos, _radius, _types, _hide], {
+                    params ["_pos", "_radius", "_types", "_hide"];
+                    {
+                        _x hideObjectGlobal _hide;
+                    } count nearestTerrainObjects [_pos, _types, _radius, false, true];
+                }] remoteExec ["call", 2];
+            },
+            nil,
+            _pos
+        ] call zen_dialog_fnc_create;
     }
-] call Ares_fnc_RegisterCustomModule;
+] call zen_custom_modules_fnc_register;
 
-/*
- * Players
- */
-
+#ifdef not_ported_over_yet
 [
     "Players",
     "Set new player unit",
@@ -410,34 +429,27 @@ if (isNil "Ares_fnc_RegisterCustomModule") exitWith {};
         _unit remoteExec ["selectPlayer", _client];
     }
 ] call Ares_fnc_RegisterCustomModule;
-
-/*
- * Scenario Flow
- */
+#endif
 
 [
-    "Scenario Flow",
+    "A3AA",
     "End Mission - Won",
     {
         { ["stop", cntr_exportPath] call cntr_fnc_export } remoteExecCall ["call", 2];
         ["end1", true] remoteExec ["BIS_fnc_endMission"];
     }
-] call Ares_fnc_RegisterCustomModule;
+] call zen_custom_modules_fnc_register;
 [
-    "Scenario Flow",
+    "A3AA",
     "End Mission - Lost",
     {
         { ["stop", cntr_exportPath] call cntr_fnc_export } remoteExecCall ["call", 2];
         ["end1", false] remoteExec ["BIS_fnc_endMission"];
     }
-] call Ares_fnc_RegisterCustomModule;
-
-/*
- * Respawn
- */
+] call zen_custom_modules_fnc_register;
 
 [
-    "Respawn",
+    "A3AA",
     "Move respawn",
     {
         params ["_pos", "_unit"];
@@ -447,9 +459,9 @@ if (isNil "Ares_fnc_RegisterCustomModule") exitWith {};
             "respawn" setMarkerPos _pos;
         };
     }
-] call Ares_fnc_RegisterCustomModule;
+] call zen_custom_modules_fnc_register;
 [
-    "Respawn",
+    "A3AA",
     "Move respawn_west",
     {
         params ["_pos", "_unit"];
@@ -459,9 +471,9 @@ if (isNil "Ares_fnc_RegisterCustomModule") exitWith {};
             "respawn_west" setMarkerPos _pos;
         };
     }
-] call Ares_fnc_RegisterCustomModule;
+] call zen_custom_modules_fnc_register;
 [
-    "Respawn",
+    "A3AA",
     "Move respawn_east",
     {
         params ["_pos", "_unit"];
@@ -471,9 +483,9 @@ if (isNil "Ares_fnc_RegisterCustomModule") exitWith {};
             "respawn_east" setMarkerPos _pos;
         };
     }
-] call Ares_fnc_RegisterCustomModule;
+] call zen_custom_modules_fnc_register;
 [
-    "Respawn",
+    "A3AA",
     "Move respawn_guerrila",
     {
         params ["_pos", "_unit"];
@@ -485,9 +497,9 @@ if (isNil "Ares_fnc_RegisterCustomModule") exitWith {};
             "respawn_guerrilla" setMarkerPos _pos;
         };
     }
-] call Ares_fnc_RegisterCustomModule;
+] call zen_custom_modules_fnc_register;
 [
-    "Respawn",
+    "A3AA",
     "Move respawn_civilian",
     {
         params ["_pos", "_unit"];
@@ -497,10 +509,10 @@ if (isNil "Ares_fnc_RegisterCustomModule") exitWith {};
             "respawn_civilian" setMarkerPos _pos;
         };
     }
-] call Ares_fnc_RegisterCustomModule;
+] call zen_custom_modules_fnc_register;
 
 [
-    "Respawn",
+    "A3AA",
     "Move JIP teleport point",
     {
         params ["_pos", "_unit"];
@@ -515,23 +527,19 @@ if (isNil "Ares_fnc_RegisterCustomModule") exitWith {};
             publicVariable "a3aa_ee_teleport_on_jip_pos";
         };
     }
-] call Ares_fnc_RegisterCustomModule;
-
-/*
- * Util
- */
+] call zen_custom_modules_fnc_register;
 
 [
-    "Objects",
-    "[U] Delete units (really)",
+    "A3AA",
+    "Delete units (really)",
     {
-        private _units = [_this select 1];
-        if (objNull in _units) then {
-            _units = ["objects"] call Achilles_fnc_SelectUnits;
-        };
-        if (isNil "_units") exitWith {};
-        {
-            deleteVehicle _x;
-        } forEach _units;
+        ["Select units.", {
+            private _units = curatorSelected select 0;
+            if (_units isEqualTo []) exitWith {
+                ["No units selected.", "cancel"]
+                    call a3aa_ares_extras_fnc_curatorMsg;
+            };
+            { deleteVehicle _x } forEach _units;
+        }] call a3aa_ares_extras_fnc_confirm;
     }
-] call Ares_fnc_RegisterCustomModule;
+] call zen_custom_modules_fnc_register;
