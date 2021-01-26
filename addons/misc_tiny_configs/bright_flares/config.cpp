@@ -37,4 +37,9 @@ class CfgAmmo {
     class F_Signal_Green : FlareBase {
         FLARECFG
     };
+    class F_40mm_Cir : F_40mm_White {
+        nvgOnly = 1;
+        useFlare = 0;
+        irLock = 1;
+    };
 };
