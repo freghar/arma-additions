@@ -16,6 +16,8 @@ class CfgPatches {
     };
 };
 
+#include "..\bright_flashlight\flashlight_params.h"
+
 class CfgWeapons {
     class InventoryFlashLightItem_Base_F;
     class acc_flashlight;
@@ -31,7 +33,7 @@ class CfgWeapons {
                 color[] = {180, 160, 130};
                 ambient[] = {0.9, 0.81, 0.7};
 
-                #include "..\bright_flashlight\flashlight_params.h"
+                FLASHLIGHT_MIDRANGE
             };
         };
     };
@@ -50,7 +52,7 @@ class CfgWeapons {
                 color[] = {180, 160, 130};
                 ambient[] = {0.9, 0.81, 0.7};
 
-                #include "..\bright_flashlight\flashlight_params.h"
+                FLASHLIGHT_MIDRANGE
             };
         };
     };
