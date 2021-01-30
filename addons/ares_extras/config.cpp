@@ -17,6 +17,7 @@ class CfgFunctions {
             class confirm;
             class selectUnits;
             class selectUnitsSelected;
+            class localitySet;
         };
         class task_force {
             file = "\a3aa\ares_extras\task_force";

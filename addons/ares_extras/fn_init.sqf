@@ -200,15 +200,10 @@ if (isNil "zen_custom_modules_fnc_register") exitWith {};
     "\a3\ui_f\data\map\vehicleicons\iconVirtual_ca.paa"
 ] call zen_custom_modules_fnc_register;
 
-#ifdef not_ported_over_yet
 [
-    "Development Tools",
-    "[G] Locality - Set",
+    "A3AA",
+    "Locality - Set",
     {
-        if (!isMultiplayer) exitWith {
-            ["Not applicable in singleplayer."] call Ares_fnc_ShowZeusMessage;
-        };
-
         private _hcs = (entities "HeadlessClient_F") select { _x in allPlayers };
         private _targets =
             _hcs +
@@ -218,88 +213,68 @@ if (isNil "zen_custom_modules_fnc_register") exitWith {};
             (_hcs apply { name _x }) +
             ["Server"] +
             ((allPlayers - _hcs) apply { name _x });
-
-        private _reply = [
-            "Set locality / owner of groups",
-            [
-                ["Choose new owner", _target_names]
-            ]
-        ] call Ares_fnc_showChooseDialog;
-        if (_reply isEqualTo []) exitWith {};
-        private _target = _targets select (_reply select 0);
-
-        private _units = [_this select 1];
-        if (objNull in _units) then {
-            _units = ["groups to transfer"] call Achilles_fnc_SelectUnits;
-        };
-        if (isNil "_units") exitWith {};
-        private _groups = [];
-        { _groups pushBackUnique group _x } forEach _units;
-
-        [[_target, _groups], {
-            params ["_target", "_groups"];
-
-            if (!isNil "a3aa_ares_extras_transferring_units") exitWith {
-                "Locality transfer already running." remoteExec ["systemChat", remoteExecutedOwner];
-            };
-            a3aa_ares_extras_transferring_units = true;
-
-            if (_target isEqualTo -1) then {
-                _target = 2;  /* special value for Server */
-            } else {
-                _target = owner _target;  /* passed unit */
-            };
-
-            _groups = _groups select { groupOwner _x != _target };
-
-            private _i = 0;
-            private _total = count _groups;
-            format ["Going to transfer %1 groups.", _total] remoteExec ["systemChat", remoteExecutedOwner];
+        [_this select 1, "Select groups to transfer.", [
+            [_targets, _target_names],
             {
-                if (!isNull _x) then {
-                    private _src = groupOwner _x;
-                    _x setGroupOwner _target;
-                    waitUntil {
-                        !(_src in (units _x apply { owner _x }));
-                    };
-                    _i = _i + 1;
-                    sleep 10;
-                    format ["%1 done (%2/%3)", str _x, _i, _total] remoteExec ["systemChat", remoteExecutedOwner];
-                };
-            } forEach _groups;
-            a3aa_ares_extras_transferring_units = nil;
-            "Locality transfer done." remoteExec ["systemChat", remoteExecutedOwner];
-        }] remoteExec ["spawn", 2];
-    }
+                params ["_groups", "_args"];
+                _args params ["_targets", "_target_names"];
+                [
+                    "Locality - Set",
+                    [
+                        ["LIST", "Transfer to", [
+                            _targets,
+                            _target_names
+                        ]]
+                    ],
+                    {
+                        params ["_dialog_data", "_groups"];
+                        _dialog_data params ["_target"];
+                        [_target, _groups]
+                            remoteExec ["a3aa_ares_extras_fnc_localitySet", 2];
+                    },
+                    nil,
+                    _groups
+                ] call zen_dialog_fnc_create;
+            }
+        ], "groups"] call a3aa_ares_extras_fnc_selectUnits;
+    },
+    "\a3\ui_f\data\map\vehicleicons\iconVirtual_ca.paa"
 ] call zen_custom_modules_fnc_register;
-#endif
 
-#ifdef not_ported_over_yet
 [
-    "Development Tools",
-    "Give Zeus to player (may crash)",
+    "A3AA",
+    "Promote to Zeus (lightweight)",
     {
         params ["_pos", "_unit"];
-        if (isNil "_unit" || isNull _unit) exitWith {
-            ["No unit selected."] call Ares_fnc_ShowZeusMessage;
+        if (isNull _unit) exitWith {
+            ["No unit selected.", "cancel"]
+                call a3aa_ares_extras_fnc_curatorMsg;
+        };
+        if (!(_unit in allPlayers)) exitWith {
+            ["Unit is not a player soldier.", "cancel"]
+                call a3aa_ares_extras_fnc_curatorMsg;
         };
         if (!isNull getAssignedCuratorLogic _unit) exitWith {
-            ["Player already has Zeus."] call Ares_fnc_ShowZeusMessage;
+            ["Player already has Zeus.", "cancel"]
+                call a3aa_ares_extras_fnc_curatorMsg;
         };
         [_unit, {
+            /* race condition double check */
             if (!isNull getAssignedCuratorLogic _this) exitWith {};
-            private _curator = ([_this, false] call insta_zeus_fnc_mkCurator);
+            /* TODO: when adding curator recycling logic, pass no arg */
+            private _curator = _this call a3aa_insta_zeus_fnc_mkCurator;
             0 = [_curator, _this] spawn {
                 params ["_curator", "_unit"];
+                private _end = time + 10;
                 waitUntil {
                     _unit assignCurator _curator;
-                    !isNull getAssignedCuratorUnit _curator;
+                    !isNull getAssignedCuratorUnit _curator || time > _end;
                 };
             };
         }] remoteExec ["call", 2];
-    }
-] call Ares_fnc_RegisterCustomModule;
-#endif
+    },
+    "\a3\Modules_F_Curator\Data\portraitCurator_ca.paa"
+] call zen_custom_modules_fnc_register;
 
 [
     "A3AA",
