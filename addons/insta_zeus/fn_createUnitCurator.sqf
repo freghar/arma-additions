@@ -26,31 +26,24 @@
 params ["_unit", "_checkbox"];
 if (!_checkbox) exitWith {};
 
-/* for singleplayer, we already have admin_curator */
+/* for singleplayer, we already have admin curator */
 if (!isMultiplayer) exitWith {};
 
-/* atomic */
-isNil {
-    if (isNil "a3aa_insta_zeus_unit_curators") then {
-        a3aa_insta_zeus_unit_curators = [];
-    };
+if (isNil "a3aa_insta_zeus_unit_curators") then {
+    a3aa_insta_zeus_unit_curators = [];
 };
 
 private "_curator";
-
-/* atomic */
-isNil {
-    {
-        if (getAssignedCuratorUnit _x == objNull) exitWith {
-            _curator = _x;
-        };
-    } forEach a3aa_insta_zeus_unit_curators;
-};
+{
+    if (isNull getAssignedCuratorUnit _x) exitWith {
+        _curator = _x;
+    };
+} forEach a3aa_insta_zeus_unit_curators;
 
 if (isNil "_curator" && time <= 0) then {
     _curator = ([] call a3aa_insta_zeus_fnc_mkCurator);
-    _unit assignCurator _curator;
     a3aa_insta_zeus_unit_curators pushBack _curator;
+    _unit assignCurator _curator;
 } else {
     if (!isNil "_curator") then {
         _unit assignCurator _curator;

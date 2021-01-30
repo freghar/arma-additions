@@ -11,28 +11,17 @@ class CfgPatches {
 
 class CfgFunctions {
     class a3aa_insta_zeus {
-        /* instance dedicated to logged in / voted admin */
-        class admin_curator {
-            file = "\a3aa\insta_zeus\admin_curator";
-            class createGlobalCurator { postInit = 1; };
-            class maintainCurator { postInit = 1; };
-        };
-        /* checkbox-based (Eden) per-unit curator instances */
-        class unit_curator {
-            file = "\a3aa\insta_zeus\unit_curator";
+        class all {
+            file = "\a3aa\insta_zeus";
+            class mkCurator;
+            class mkCuratorAddEHs;
+            class createAdminCurator { postInit = 1; };
             class createUnitCurator;
         };
-        /* misc keepers for all curators */
-        class runtime {
-            file = "\a3aa\insta_zeus\runtime";
+        class per_client {
+            file = "\a3aa\insta_zeus\per_client";
             class addPlayer { postInit = 1; };
             class onRespawn { postInit = 1; };
-        };
-        /* internal and external */
-        class api {
-            file = "\a3aa\insta_zeus\api";
-            class mkCurator;
-            class curatorOpened;
         };
     };
 };
