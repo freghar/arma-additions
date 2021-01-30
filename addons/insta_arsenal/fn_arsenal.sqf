@@ -1,7 +1,6 @@
 #include "\A3\ui_f_curator\ui\defineResinclDesign.inc"
 
-/* allow only if logged in, see fn_maintainCurator */
-if (isMultiplayer && !serverCommandAvailable "#kick") exitWith {};
+if (!([] call a3aa_insta_arsenal_fnc_allowed)) exitWith {};
 
 switch _this do {
     case "open": {

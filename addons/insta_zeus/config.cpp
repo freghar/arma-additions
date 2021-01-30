@@ -4,7 +4,6 @@ class CfgPatches {
         weapons[] = {};
         requiredAddons[] = {
             "3den",
-            "cba_keybinding",
             "cba_xeh"
         };
     };
@@ -22,12 +21,6 @@ class CfgFunctions {
         class unit_curator {
             file = "\a3aa\insta_zeus\unit_curator";
             class createUnitCurator;
-        };
-        /* keybind-based arsenal functionality for the admin instance */
-        class arsenal {
-            file = "\a3aa\insta_zeus\arsenal";
-            class arsenal;
-            class arsenalKeys;
         };
         /* misc keepers for all curators */
         class runtime {
@@ -70,11 +63,5 @@ class Cfg3DEN {
                 };
             };
         };
-    };
-};
-
-class Extended_PreInit_EventHandlers {
-    class a3aa_insta_zeus {
-        init = "[] call a3aa_insta_zeus_fnc_arsenalKeys";
     };
 };
