@@ -1,5 +1,5 @@
-/* allow for singleplayer or "fake" multiplayer (Apex campaign) */
-if (!isMultiplayer || isMultiplayerSolo) exitWith { true };
+/* allow for singleplayer */
+if (!isMultiplayer) exitWith { true };
 
 /* allow if logged or voted in, see fn_maintainCurator */
 if (serverCommandAvailable "#kick") exitWith { true };
