@@ -9,19 +9,19 @@ class CfgPatches {
 class CfgFunctions {
     class a3aa {
         class cargo {
-            file = "a3aa\functions\cargo";
+            file = "\a3aa\functions\cargo";
             class boxGuard;
         };
         /* simple wrappers for a circular buffer */
         class cbuff {
-            file = "a3aa\functions\cbuff";
+            file = "\a3aa\functions\cbuff";
             class cbuffInit;
             class cbuffGet;
             class cbuffSet;
         };
         /* fast implementation of a "dict" (hash lookup table) */
         class hash {
-            file = "a3aa\functions\hash";
+            file = "\a3aa\functions\hash";
             class hashAppendUnique;
             class hashCntIncrement;
             class hashGet;
@@ -35,7 +35,7 @@ class CfgFunctions {
         };
         /* mission persistence (boxes, vehicles, terrain) saving/loading */
         class saveload {
-            file = "a3aa\functions\saveload";
+            file = "\a3aa\functions\saveload";
             class loadCargo;
             class loadTerrain;
             class loadVehicle;
@@ -45,7 +45,7 @@ class CfgFunctions {
         };
         /* miscellaneous uncategorized */
         class misc {
-            file = "a3aa\functions\misc";
+            file = "\a3aa\functions\misc";
             class classKindOf;
             class player;
         };
