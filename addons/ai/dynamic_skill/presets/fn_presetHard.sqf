@@ -21,10 +21,10 @@ private [
 private _veh = vehicle _unit;
 if (_veh != _unit && {_unit in [driver _veh, gunner _veh, commander _veh]}) then {
     if (_veh isKindOf "Tank" || _veh isKindOf "Air") then {
-        _aimingAccuracy = 0.7;
+        _aimingAccuracy = 0.5;
     } else {
         /* Car and Ship */
-        _aimingAccuracy = 0.5;
+        _aimingAccuracy = 0.4;
     };
 } else {
     _aimingAccuracy = 0.5;

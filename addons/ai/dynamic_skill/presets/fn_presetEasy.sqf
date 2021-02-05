@@ -23,10 +23,10 @@ if (_veh != _unit && {_unit in [driver _veh, gunner _veh, commander _veh]}) then
         _aimingAccuracy = 0.3;
     };
 } else {
-    _aimingAccuracy = 0.3;
+    _aimingAccuracy = 0.4;
 };
 
-_aimingShake = 0.4;
+_aimingShake = 0.7;
 _aimingSpeed = 0.7;
 _endurance = 1.0;
 _spotDistance = 0.7;
@@ -34,7 +34,7 @@ _spotDistance = 0.7;
 _spotTime = switch (behaviour _unit) do {
     case "STEALTH";
     case "AWARE":  { 0.4 };
-    case "COMBAT": { 0.8 };
+    case "COMBAT": { 0.7 };
     default { 0.2 };
 };
 
