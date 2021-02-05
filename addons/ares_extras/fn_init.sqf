@@ -47,7 +47,7 @@ if (isNil "zen_custom_modules_fnc_register") exitWith {};
         params ["_pos", "_unit"];
         private _dst = _unit;
         if (isNil "_unit" || isNull _unit) then {
-            _dst = _pos;  /* use pos as dst */
+            _dst = ASLtoATL _pos;  /* use pos as dst */
         };
         [objNull, "Select watcher units.", [_dst, {
             params ["_units", "_dst"];
@@ -122,13 +122,13 @@ if (isNil "zen_custom_modules_fnc_register") exitWith {};
         params ["_pos", "_unit"];
         private _dst = _unit;
         if (isNil "_unit" || isNull _unit) then {
-            _dst = _pos;  /* use pos as dst */
+            _dst = ASLtoATL _pos;  /* use pos as dst */
         };
         [objNull, "Select sources (soldiers/vehicles).", [_dst, {
             params ["_units", "_dst"];
             /* doSuppressiveFire doesn't work well on position */
             if (!(_dst isEqualType objNull)) then {
-                _dst = createVehicle ["Land_HelipadEmpty_F", ASLToATL _dst,
+                _dst = createVehicle ["Land_HelipadEmpty_F", _dst,
                                       [], 0, "CAN_COLLIDE"];
                 0 = _dst spawn { sleep 30; deleteVehicle _this; };
             };
