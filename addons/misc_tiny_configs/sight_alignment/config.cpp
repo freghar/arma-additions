@@ -33,7 +33,7 @@ class CfgWeaponHandling {
          * eg. how resistant the alignment is to motion
          * (higher = faster misalignment)
          */
-        rate = 1;  // default: 0.1
+        rate = 0.4;  // default: 0.1
         /*
          * how much worse the effect is when looking down sights vs hip-aiming
          * (multiplier, higher = worse)
