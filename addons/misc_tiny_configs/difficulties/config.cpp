@@ -22,7 +22,7 @@ class CfgDifficultyPresets {
     class Veteran {
         class Options {
             reducedDamage = 0;
-            groupIndicators = 0;
+            groupIndicators = 1;
             friendlyTags = 0;
             enemyTags = 0;
             detectedMines = 0;
