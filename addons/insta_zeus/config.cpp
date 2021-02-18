@@ -27,11 +27,11 @@ class CfgFunctions {
 };
 
 class CfgVehicles {
-    class Logic;
-    class a3aa_insta_zeus_dumb_curator : Logic {
+    /* inherit ModuleCurator_F so other mods can add CBA class EH on it */
+    class ModuleCurator_F;
+    class a3aa_insta_zeus_dumb_curator : ModuleCurator_F {
         scope = 1;
-        /* creates a curator instance upon creating this Vehicle */
-        simulation = "curator";
+        function = "";
     };
 };
 

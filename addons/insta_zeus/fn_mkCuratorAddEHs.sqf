@@ -48,18 +48,3 @@ _logic addEventHandler ["CuratorObjectPlaced", {
         } forEach _editfor;
     }] remoteExec ["call", 2];
 }];
-
-/*
- * add hack for shift-rotating remote objects
- * - CBA does this, but only for ModuleCurator_F
- */
-_logic addEventHandler ["CuratorObjectEdited", {
-    params ["_curator", "_unit"];
-    if (!local _unit) then {
-        private _dir = getDir _unit;
-        [_unit, _dir] remoteExec ["setDir", _unit];
-        if (_unit == formLeader _unit) then {
-            [_unit, _dir] remoteExec ["setFormDir", _unit];
-        };
-    };
-}];
