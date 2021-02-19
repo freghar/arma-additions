@@ -12,7 +12,6 @@ class CfgPatches {
             "rhsusf_c_weapons",  /* rhsusf_silencer_base */
             "rhs_c_weapons"      /* rhs_silencer_base */
         };
-        addonRootClass = "rhsusf_c_weapons";
     };
 };
 

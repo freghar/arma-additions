@@ -11,7 +11,6 @@ class CfgPatches {
             "A3_Characters_F",
             "ace_movement"
         };
-        addonRootClass = "A3_Characters_F";
     };
 };
 

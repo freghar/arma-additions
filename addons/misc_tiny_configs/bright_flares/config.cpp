@@ -12,7 +12,6 @@ class CfgPatches {
             "A3_Weapons_F",
             "ace_grenades"     // overwrites flare intensity
         };
-        addonRootClass = "A3_Weapons_F";
     };
 };
 

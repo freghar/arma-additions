@@ -10,7 +10,6 @@ class CfgPatches {
         requiredAddons[] = {
             "A3_Weapons_F"
         };
-        addonRootClass = "A3_Weapons_F";
     };
 };
 

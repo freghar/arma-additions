@@ -16,7 +16,6 @@ class CfgPatches {
             "A3_Weapons_F_Mod",
             "ace_ballistics"  /* muzzle_snds_* overrides */
         };
-        addonRootClass = "A3_Weapons_F_Mod";
     };
 };
 

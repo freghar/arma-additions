@@ -18,7 +18,6 @@ class CfgPatches {
             "rhsusf_c_weapons",
             "rhs_c_weapons"
         };
-        addonRootClass = "rhsusf_c_weapons";
     };
 };
 
