@@ -1,11 +1,11 @@
 #define FLASHLIGHT_VANILLA_DEFAULTS \
-    color[]={180,160,130}; \
-    ambient[]={0.9,0.81,0.7}; \
-    size=1; \
-    position="flash dir"; \
-    direction="flash"; \
+    color[] = {180,160,130}; \
+    ambient[] = {0.9,0.81,0.7}; \
+    size = 1; \
+    position = "flash dir"; \
+    direction = "flash"; \
     useFlare = 1; \
-    scale[]={0};
+    scale[] = {0};
 
 /*
  * disable Attenuation as it is bugged for light sources since Arma 3 lighting
