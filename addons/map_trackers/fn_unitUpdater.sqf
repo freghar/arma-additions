@@ -84,7 +84,7 @@ waitUntil {
      * soldier icons
      */
     private _units = ([] call _get_units) select {
-        player distance _x < _dist;
+        !isNull _x && {player distance _x < _dist};
     };
     private _grp_units = units group player;
     _units = _units apply {
@@ -115,6 +115,7 @@ waitUntil {
     a3aa_map_trackers_units = _units;
     a3aa_map_trackers_unit_lines = _lines;
 
-    sleep 1;
+    /* because of a briefing map screen */
+    uiSleep 1;
     false;
 }

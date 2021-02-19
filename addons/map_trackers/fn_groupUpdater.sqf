@@ -34,7 +34,8 @@ waitUntil {
     };
 
     private _groups = ([] call _get_groups) select {
-        (a3aa_map_trackers_group_showai || leader _x in allPlayers)
+        !isNull leader _x
+        && {a3aa_map_trackers_group_showai || leader _x in allPlayers}
         && {[] call _show_self || !(player in units _x)}
         && {!(_x getVariable ["a3aa_map_trackers_hide_group", false])}
         && {!(_x getVariable ["ACE_map_hideBlueForceMarker", false])}
@@ -53,6 +54,7 @@ waitUntil {
 
     a3aa_map_trackers_groups = _groups;
 
-    sleep 1;
+    /* because of a briefing map screen */
+    uiSleep 1;
     false;
 }
