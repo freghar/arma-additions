@@ -66,7 +66,7 @@ class CfgDifficultyPresets {
             scoreTable = 1;
             deathMessages = 0;
             vonID = 1;
-            mapContent = 1;
+            mapContent = 0;
             autoReport = 0;
             multipleSaves = 1;
         };
