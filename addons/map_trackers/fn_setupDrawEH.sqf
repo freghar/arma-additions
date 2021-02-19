@@ -62,13 +62,15 @@ _this ctrlAddEventHandler ["Draw", {
     {
         _x params ["_unit", "_icon", "_color", "_name"];
         private _alpha = (player distance _unit) call _calc_alpha;
+        private _pos = getPosVisual _unit;
+        private _dir = getDirVisual _unit;
         _ctrl drawIcon [
             "iconMan",
             [0, 0, 0, _alpha],
-            _unit,
+            _pos,
             20,
             20,
-            getDir _unit,
+            _dir,
             _name,
             0,
             0.03,
@@ -78,10 +80,10 @@ _this ctrlAddEventHandler ["Draw", {
         _ctrl drawIcon [
             _icon,
             _color+[_alpha],
-            _unit,
+            _pos,
             16,
             16,
-            getDir _unit
+            _dir
         ];
     } forEach a3aa_map_trackers_units;
 }];
