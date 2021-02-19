@@ -49,7 +49,7 @@
 
 #define FLASHLIGHT_FAR \
     dayLight = 1; \
-    flareSize = 0.3; \
+    flareSize = 0.6; \
     intensity = 2500; \
     innerAngle = 1; \
     outerAngle = 15; \
