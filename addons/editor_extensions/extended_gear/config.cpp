@@ -15,6 +15,7 @@ class CfgFunctions {
     class a3aa_ee_extended_gear {
         class all {
             file = "\a3aa\ee\extended_gear";
+            class setUnitInsignia;
             class setAttributeVar;
             class setupExtendedGear;
             class init;

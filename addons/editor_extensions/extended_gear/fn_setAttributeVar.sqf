@@ -28,7 +28,7 @@ switch (_varname) do {
         /* some races when loading mission? */
         0 = [_unit, _value] spawn {
             uiSleep 0.5;
-            _this call BIS_fnc_setUnitInsignia;
+            _this call a3aa_ee_extended_gear_fnc_setUnitInsignia;
         };
     };
     case "a3aa_ee_extended_gear_face": {

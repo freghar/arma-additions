@@ -24,7 +24,7 @@
         private _saved = missionNamespace getVariable "a3aa_ee_extended_gear_saved";
         if (isNil "_saved") exitWith {};  /* too early / not during runtime */
         if (isNil "a3aa_ee_extended_gear_player_insignia_used") exitWith {};
-        [player, _this] call BIS_fnc_setUnitInsignia;
+        [player, _this] call a3aa_ee_extended_gear_fnc_setUnitInsignia;
         _saved set [1, _this];
     }
 ] call CBA_settings_fnc_init;

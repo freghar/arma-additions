@@ -32,7 +32,7 @@ if (_goggles != "") then {
 };
 
 if (_insignia != "") then {
-    [player, _insignia] call BIS_fnc_setUnitInsignia;
+    [player, _insignia] call a3aa_ee_extended_gear_fnc_setUnitInsignia;
 };
 
 if (_face != "") then {
@@ -60,13 +60,7 @@ player addEventHandler ["Respawn", {
     };
 
     if (_insignia != "") then {
-        /*
-         * this is apparently a known BIS bug - the function seems to have some
-         * respawn logic, but it's broken and blocks the function from working
-         * - clearing this with "" seems to un-break it
-         */
-        [player, ""] call BIS_fnc_setUnitInsignia;
-        [player, _insignia] call BIS_fnc_setUnitInsignia;
+        [player, _insignia] call a3aa_ee_extended_gear_fnc_setUnitInsignia;
     };
 
     if (_face != "") then {
