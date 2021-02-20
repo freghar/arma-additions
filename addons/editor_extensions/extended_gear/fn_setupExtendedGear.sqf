@@ -73,18 +73,4 @@ player addEventHandler ["Respawn", {
         /* object-attached JIP queue handle, gets removed on objNull */
         [player, _face] remoteExec ["setFace", 0, player];
     };
-
-    /*
-     * for some unknown reason, when player dies, the corpse gets
-     * re-assigned goggles/face from what the player originally had
-     * - just wait (a bit) and re-set it to our values
-     */
-    if (_goggles != "" || _face != "") then {
-        0 = _corpse spawn {
-            sleep 0.5;
-            removeGoggles _this;
-            _this addGoggles goggles player;
-            _this setFace face player;
-        };
-    };
 }];
