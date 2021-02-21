@@ -179,7 +179,8 @@ if (isNil "zen_custom_modules_fnc_register") exitWith {};
     {
         [_this select 1, "Select units.", {
             {
-                [_x, "NoVoice"] remoteExec ["setSpeaker", 0, _x];
+                [[_x, { _this setSpeaker "NoVoice" }], 0, _x, { !alive _this }]
+                    call a3aa_fnc_remoteCallObj;
             } forEach _this;
         }] call a3aa_ares_extras_fnc_selectUnits;
     },

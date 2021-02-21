@@ -36,8 +36,14 @@ if (_insignia != "") then {
 };
 
 if (_face != "") then {
-    /* object-attached JIP queue handle, gets removed on objNull */
-    [player, _face] remoteExec ["setFace", 0, player];
+    [
+        [[player, _face], {
+            params ["_unit", "_face"];
+            _unit setFace _face;
+        }],
+        0,
+        player
+    ] call a3aa_fnc_remoteCallObj;
 };
 
 /*
@@ -64,7 +70,13 @@ player addEventHandler ["Respawn", {
     };
 
     if (_face != "") then {
-        /* object-attached JIP queue handle, gets removed on objNull */
-        [player, _face] remoteExec ["setFace", 0, player];
+        [
+            [[player, _face], {
+                params ["_unit", "_face"];
+                _unit setFace _face;
+            }],
+            0,
+            player
+        ] call a3aa_fnc_remoteCallObj;
     };
 }];

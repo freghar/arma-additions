@@ -3,12 +3,17 @@ if (!hasInterface) exitWith {};
 
 0 = [] spawn {
     waitUntil { !isNull player };
-    /* player owner broadcasting to all, adding to JIP queue */
-    [player, {
-        _this setSpeaker "NoVoice";
-        _this addEventHandler ["Respawn", {
-            params ["_unit", "_corpse"];
-            _unit setSpeaker "NoVoice";
-        }];
-    }] remoteExec ["call", 0, player];
+    /* setSpeaker is unfortunately EL */
+    [
+        [player, {
+            _this setSpeaker "NoVoice";
+            _this addEventHandler ["Respawn", {
+                params ["_unit", "_corpse"];
+                _unit setSpeaker "NoVoice";
+            }];
+        }],
+        0,
+        player,
+        { !alive _this }
+    ] call a3aa_fnc_remoteCallObj;
 };
