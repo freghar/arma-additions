@@ -33,6 +33,12 @@ class CfgFunctions {
             class hashSet;
             class hashValues;
         };
+        /* remoteExec with support for multiple JIP entries for object/group */
+        class remote_call_obj {
+            file = "\a3aa\functions\remote_call_obj";
+            class remoteCallObj;
+            class remoteCallObj_wrapper;
+        };
         /* mission persistence (boxes, vehicles, terrain) saving/loading */
         class saveload {
             file = "\a3aa\functions\saveload";
