@@ -12,6 +12,7 @@ class CfgFunctions {
             file = "\a3aa\ee\insta_osd";
             class nearLocText;
             class moduleOSD;
+            class moduleOSDClients;
             class typeText;
             class instaOSD;
         };

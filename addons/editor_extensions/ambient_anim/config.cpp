@@ -11,6 +11,7 @@ class CfgFunctions {
         class all {
             file = "\a3aa\ee\ambient_anim";
             class scheduleAnim;
+            class broadcastAnim;
             class doAnim;
         };
     };

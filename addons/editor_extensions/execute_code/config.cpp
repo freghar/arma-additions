@@ -11,8 +11,9 @@ class CfgFunctions {
         class all {
             file = "\a3aa\ee\execute_code";
             class decomment;
-            class execRuntime;
             class exec3DEN;
+            class execRuntime;
+            class execRuntimeClients;
         };
     };
 };

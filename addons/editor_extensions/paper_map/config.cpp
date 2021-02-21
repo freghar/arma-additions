@@ -11,6 +11,7 @@ class CfgFunctions {
         class all {
             file = "\a3aa\ee\paper_map";
             class init;
+            class onClients;
         };
     };
 };
