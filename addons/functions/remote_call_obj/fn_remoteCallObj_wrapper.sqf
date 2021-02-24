@@ -16,8 +16,4 @@ if (_func isEqualType "") then {
     _func = missionNamespace getVariable [_func, {}];
 };
 
-if (isNil "_arg") then {
-    call _func;
-} else {
-    _arg call _func;
-};
+[_arg, _func] call BIS_fnc_call;

@@ -38,13 +38,7 @@ disableSerialization;
 private _display = findDisplay IDD_RSCDISPLAYCURATOR;
 if (isNull _display) exitWith {};
 
-if (_code isEqualType []) then {
-    a3aa_ares_extras_confim_codearg = _code select 0;
-    a3aa_ares_extras_confim_code = _code select 1;
-} else {
-    a3aa_ares_extras_confim_codearg = nil;
-    a3aa_ares_extras_confim_code = _code;
-};
+a3aa_ares_extras_confim_code = _code;
 
 /* another confirmation in progress */
 if (!isNil "a3aa_ares_extras_confim_EH") then {
@@ -69,12 +63,7 @@ a3aa_ares_extras_confim_EH = _display displayAddEventHandler ["KeyDown",
                 ["KeyDown", a3aa_ares_extras_confim_EH];
             a3aa_ares_extras_confim_EH = nil;
             ["Confirmed.", "normal"] call a3aa_ares_extras_fnc_curatorMsg;
-            if (isNil "a3aa_ares_extras_confim_codearg") then {
-                call a3aa_ares_extras_confim_code;
-            } else {
-                a3aa_ares_extras_confim_codearg
-                    call a3aa_ares_extras_confim_code;
-            };
+            a3aa_ares_extras_confim_code call BIS_fnc_call;  /* may have arg */
             true;
         };
         default {
