@@ -26,6 +26,7 @@ if (!hasInterface) exitWith {};
     };
 
     /* wait for any other unit-linked curators to take over */
+    waitUntil { !isNil "a3aa_preload_finished" };
     sleep 5;
     while {true} do {
         /* #logout works only on dedicated, #kick is on hosted as well */

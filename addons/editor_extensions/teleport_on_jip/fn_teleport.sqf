@@ -14,26 +14,25 @@ if (!hasInterface || !isRemoteExecutedJIP) exitWith {};
  * logic a chance to register the starting position before we teleport
  * the player once (no need to re-try)
  */
-addMissionEventHandler ["PreloadFinished", {
-    0 = [] spawn {
-        sleep 1;
 
-        waitUntil { !isNil "a3aa_ee_teleport_on_jip_dmg" };
+0 = [] spawn {
+    waitUntil { !isNil "a3aa_preload_finished" };
+    sleep 1;
 
-        /* add 1m to Z, just in case it's inside a road, etc. */
-        waitUntil { !isNil "a3aa_ee_teleport_on_jip_pos" };
-        private _pos = +a3aa_ee_teleport_on_jip_pos;
-        _pos set [2, (_pos select 2) + 1];
-        moveOut player;
-        player setVelocity [0,0,0];
-        player setPosASL _pos;
+    waitUntil { !isNil "a3aa_ee_teleport_on_jip_dmg" };
 
-        sleep 1;
-        player allowDamage a3aa_ee_teleport_on_jip_dmg;
-        a3aa_ee_teleport_on_jip_dmg = nil;
-    };
-    removeMissionEventHandler ["PreloadFinished", _thisEventHandler];
-}];
+    /* add 1m to Z, just in case it's inside a road, etc. */
+    waitUntil { !isNil "a3aa_ee_teleport_on_jip_pos" };
+    private _pos = +a3aa_ee_teleport_on_jip_pos;
+    _pos set [2, (_pos select 2) + 1];
+    moveOut player;
+    player setVelocity [0,0,0];
+    player setPosASL _pos;
+
+    sleep 1;
+    player allowDamage a3aa_ee_teleport_on_jip_dmg;
+    a3aa_ee_teleport_on_jip_dmg = nil;
+};
 
 waitUntil { !isNull player };
 a3aa_ee_teleport_on_jip_dmg = isDamageAllowed player;

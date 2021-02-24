@@ -10,6 +10,7 @@ if (!hasInterface) exitWith {};
  * https://github.com/IDI-Systems/acre2/issues/985
  */
 0 = [] spawn {
+    waitUntil { !isNil "a3aa_preload_finished" };
     waitUntil { !isNull player };
     waitUntil {
         private _disabled = player getVariable ["acre_sys_core_isDisabled", false];

@@ -30,6 +30,7 @@ class CfgFunctions {
             file = "\a3aa\functions\misc";
             class classKindOf;
             class player;
+            class preloadFinishedVar { preInit = 1; };
         };
     };
 };

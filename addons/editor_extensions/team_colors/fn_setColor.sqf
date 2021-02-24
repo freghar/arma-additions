@@ -9,6 +9,7 @@
      * after unit spawn
      * (also wait ~ for the units to be transferred)
      */
+    waitUntil { !isNil "a3aa_preload_finished" };
     sleep 5;
 
     /*
