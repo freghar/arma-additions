@@ -39,16 +39,6 @@ class CfgFunctions {
             class remoteCallObj;
             class remoteCallObj_wrapper;
         };
-        /* mission persistence (boxes, vehicles, terrain) saving/loading */
-        class saveload {
-            file = "\a3aa\functions\saveload";
-            class loadCargo;
-            class loadTerrain;
-            class loadVehicle;
-            class saveCargo;
-            class saveTerrain;
-            class saveVehicle;
-        };
         /* miscellaneous uncategorized */
         class misc {
             file = "\a3aa\functions\misc";
