@@ -19,20 +19,6 @@ class CfgFunctions {
             class cbuffGet;
             class cbuffSet;
         };
-        /* fast implementation of a "dict" (hash lookup table) */
-        class hash {
-            file = "\a3aa\functions\hash";
-            class hashAppendUnique;
-            class hashCntIncrement;
-            class hashGet;
-            class hashInit;
-            class hashKeyExists;
-            class hashKeyVals;
-            class hashKeys;
-            class hashRem;
-            class hashSet;
-            class hashValues;
-        };
         /* remoteExec with support for multiple JIP entries for object/group */
         class remote_call_obj {
             file = "\a3aa\functions\remote_call_obj";
