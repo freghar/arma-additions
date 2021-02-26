@@ -22,15 +22,24 @@ switch _this do {
         };
     };
     case "spawn": {
-        private "_pos";
+        private ["_pos", "_src", "_tgt"];
         if (!isNull findDisplay IDD_RSCDISPLAYCURATOR) then {
             /* has curator interface open, use mouse cursor position */
-            _pos = screenToWorld getMousePosition;
+            _src = getPosASL curatorCamera;
+            _tgt = AGLtoASL screenToWorld getMousePosition;
         } else {
-            _pos = screenToWorld [0.5, 0.5];
+            /* 1st/3rd person, use middle of the screen */
+            _src = AGLtoASL positionCameraToWorld [0,0,0];
+            _tgt = AGLtoASL screenToWorld [0.5,0.5];
         };
-        _pos params ["_px", "_py"];
-        private _box = createVehicle ["Land_RotorCoversBag_01_F", [_px, _py, 50], [], 0, "CAN_COLLIDE"];
+        /* try intersecting surface first, fall back to target position */
+        private _sfcs = lineIntersectsSurfaces [_src, _tgt, ([] call CBA_fnc_currentUnit)];
+        if (_sfcs isNotEqualTo []) then {
+            _pos = (_sfcs select 0) select 0;
+        } else {
+            _pos = _tgt;
+        };
+        private _box = createVehicle ["Land_RotorCoversBag_01_F", ASLtoATL _pos, [], 0, "CAN_COLLIDE"];
         [(getAssignedCuratorLogic player), [[_box], false]] remoteExec ["addCuratorEditableObjects", 2];
         ["AmmoboxInit", [_box, true]] spawn BIS_fnc_arsenal;
         if (!isNil "ace_arsenal_fnc_initBox") then {
