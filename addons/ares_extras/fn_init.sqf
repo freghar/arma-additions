@@ -52,10 +52,7 @@ if (isNil "zen_custom_modules_fnc_register") exitWith {};
         [objNull, "Select watcher units.", [_dst, {
             params ["_units", "_dst"];
             {
-                [[_x, _dst], {
-                    params ["_unit", "_dst"];
-                    _unit doWatch _dst;
-                }] remoteExec ["call", _x];
+                [_x, _dst] remoteExec ["doWatch"];
             } forEach _units;
         }]] call a3aa_ares_extras_fnc_selectUnits;
     },
