@@ -21,7 +21,7 @@ if (!(_unit getVariable ["a3aa_ee_stay_and_watch_has_jip_re", false])) then {
     _unit setVariable ["a3aa_ee_stay_and_watch_has_jip_re", true];
 
     /*
-     * disableAI and doWatch do actually have only local effect, any units
+     * disableAI and lookAt do actually have only local effect, any units
      * changing locality will behave according to their state - remoteExec
      * here thus ensures disabled PATH and correct watch direction for all
      */
@@ -32,7 +32,7 @@ if (!(_unit getVariable ["a3aa_ee_stay_and_watch_has_jip_re", false])) then {
             };
             private _pos = _this getVariable "a3aa_ee_stay_and_watch_pos";
             if (!isNil "_pos") then {
-                _this doWatch _pos;
+                _this lookAt _pos;
             };
         }],
         0,
