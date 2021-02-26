@@ -128,7 +128,7 @@ class Cfg3DEN {
                         expression = "[_this, '%s', _value] call a3aa_ee_extended_gear_fnc_setAttributeVar";
                         condition = "objectBrain";
                         defaultValue = "''";
-                        tooltip = "Insignia from CfgUnitInsignia (mod or description.ext).\n\n""Use player insignia"" tries to find a variable named ""a3aa_ee_extended_gear_player_insignia"" in the client profile, specifying a CfgUnitInsignia class name - if found, it is assigned. Otherwise behaves like ""No change"".";
+                        tooltip = "Insignia from CfgUnitInsignia (mod or description.ext).";
                     };
                     class a3aa_ee_extended_gear_face {
                         property = "a3aa_ee_extended_gear_face";
