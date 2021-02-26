@@ -10,38 +10,36 @@ class CfgFunctions {
     class a3aa_ee_stay_and_watch {
         class all {
             file = "\a3aa\ee\stay_and_watch";
-            class parse;
+            class handle;
         };
     };
 };
 
-class CfgVehicles {
-    class Logic;
-    class a3aa_ee_shared_module_base : Logic {
-        class EventHandlers;
-    };
-    class a3aa_ee_stay_and_watch : a3aa_ee_shared_module_base {
-        scope = 2;
-        icon = "\A3\Ui_f\data\IGUI\Cfg\simpleTasks\types\defend_ca.paa";
-        displayName = "Stay and watch";
-        class Attributes {
-            class a3aa_ee_stay_and_watch_structured_hint {
-                property = "a3aa_ee_kill_on_jip_structured_hint";
-                control = "StructuredText3";
-                description = "Hint: This makes synchronized units (and units on a specific Eden editor layer specified below) always stay in place (via disableAI ""PATH"") and tells them to watch a direction they were rotated to in the editor.";
+class Cfg3DEN {
+    class Object {
+        class AttributeCategories {
+            class StateSpecial {
+                class Attributes {
+                    class a3aa_ee_stay_and_watch_stay {
+                        property = "a3aa_ee_stay_and_watch_stay";
+                        control = "Checkbox";
+                        displayName = "Stay in place (disable PATH)";
+                        expression = "[_this, '%s', _value] call a3aa_ee_stay_and_watch_fnc_handle";
+                        condition = "objectBrain";
+                        defaultValue = "false";
+                        tooltip = "Unlike other implementations, this is MP safe and locality transfer safe. Note that if you re-enable PATH via enableAI and do a locality transfer afterwards, the PATH will be disabled again (unless you remoteExec that enableAI).";
+                    };
+                    class a3aa_ee_stay_and_watch_watch {
+                        property = "a3aa_ee_stay_and_watch_watch";
+                        control = "Checkbox";
+                        displayName = "Watch current direction";
+                        expression = "[_this, '%s', _value] call a3aa_ee_stay_and_watch_fnc_handle";
+                        condition = "objectBrain";
+                        defaultValue = "false";
+                        tooltip = "This commands the AI unit to watch a direction it has been rotated to in the editor. Works persistently in MP across locality transfers. Useful for keeping stationary sentries (in combination with disabling PATH) in one group.";
+                    };
+                };
             };
-            class a3aa_ee_stay_and_watch_layer {
-                property = "a3aa_ee_stay_and_watch_layer";
-                control = "Edit";
-                displayName = "Editor Layer";
-                expression = "_this setVariable [""%s"",_value]";
-                defaultValue = """""";
-                typeName = "STRING";
-                tooltip = "The module will have an effect on any units on this Eden editor layer\n(in addition to synchronized units, if there are any).";
-            };
-        };
-        class EventHandlers : EventHandlers {
-            class a3aa_ee_stay_and_watch { init = "if (isServer) then { (_this select 0) call a3aa_ee_stay_and_watch_fnc_parse }"; };
         };
     };
 };
