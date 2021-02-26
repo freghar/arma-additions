@@ -9,7 +9,7 @@ switch _this do {
          * on v1.62+, making you unable to ever open the Arsenal UI without
          * rejoining the mission, so let's prevent it here
          */
-        if (cameraOn != vehicle player) exitWith {};
+        if (([] call CBA_fnc_currentUnit) != player) exitWith {};
         ["Open", true] spawn BIS_fnc_arsenal;
     };
     case "ace_open": {
@@ -17,7 +17,7 @@ switch _this do {
             [ace_player, ace_player, true] call ace_arsenal_fnc_openBox;
         } else {
             /* fall back to BI arsenal */
-            if (cameraOn != vehicle player) exitWith {};
+            if (([] call CBA_fnc_currentUnit) != player) exitWith {};
             ["Open", true] spawn BIS_fnc_arsenal;
         };
     };

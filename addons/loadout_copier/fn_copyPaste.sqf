@@ -88,10 +88,10 @@ switch (_variant) do {
         };
     };
     case "soldier": {
-        if (isNull player) exitWith {};
-        private _target = player;
+        private _target = [] call CBA_fnc_currentUnit;
+        if (isNull _target) exitWith {};
         private _cursor = cursorTarget;
-        if (_cursor isKindOf "CAManBase" && {player distance _cursor < 50}) then {
+        if (_cursor isKindOf "CAManBase" && {_target distance _cursor < 50}) then {
             _target = _cursor;
         };
         switch (_action) do {
