@@ -2,23 +2,38 @@
 
 if (!([] call a3aa_insta_arsenal_fnc_allowed)) exitWith {};
 
+private _get_unit_for_open = {
+    if (!isNull findDisplay IDD_RSCDISPLAYCURATOR) exitWith {
+        private _sel = curatorSelected select 0;
+        if (_sel isNotEqualTo []) then {
+            _sel select 0;
+        } else {
+            objNull;
+        };
+    };
+    [] call CBA_fnc_currentUnit;
+};
+
 switch _this do {
     case "open": {
+        private _unit = [] call _get_unit_for_open;
+        if (isNull _unit) exitWith {};
         /*
          * if remotely controlling a unit, opening BI Arsenal breaks everything
          * on v1.62+, making you unable to ever open the Arsenal UI without
          * rejoining the mission, so let's prevent it here
          */
-        if (([] call CBA_fnc_currentUnit) != player) exitWith {};
-        ["Open", true] spawn BIS_fnc_arsenal;
+        if (_unit != player && isNull findDisplay IDD_RSCDISPLAYCURATOR) exitWith {};
+        ["Open", [true, nil, _unit]] call BIS_fnc_arsenal;
     };
     case "ace_open": {
+        private _unit = [] call _get_unit_for_open;
+        if (isNull _unit) exitWith {};
         if (!isNil "ace_arsenal_fnc_openBox") then {
-            [ace_player, ace_player, true] call ace_arsenal_fnc_openBox;
+            [_unit, _unit, true] call ace_arsenal_fnc_openBox;
         } else {
             /* fall back to BI arsenal */
-            if (([] call CBA_fnc_currentUnit) != player) exitWith {};
-            ["Open", true] spawn BIS_fnc_arsenal;
+            "open" call a3aa_insta_arsenal_fnc_arsenal;
         };
     };
     case "spawn": {
@@ -33,7 +48,7 @@ switch _this do {
             _tgt = AGLtoASL screenToWorld [0.5,0.5];
         };
         /* try intersecting surface first, fall back to target position */
-        private _sfcs = lineIntersectsSurfaces [_src, _tgt, ([] call CBA_fnc_currentUnit)];
+        private _sfcs = lineIntersectsSurfaces [_src, _tgt, [] call CBA_fnc_currentUnit];
         if (_sfcs isNotEqualTo []) then {
             _pos = (_sfcs select 0) select 0;
         } else {
