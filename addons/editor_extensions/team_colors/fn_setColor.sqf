@@ -4,6 +4,15 @@ if (is3DEN) exitWith {};
 params ["_unit", "_color"];
 if (_color == "MAIN") exitWith {};
 
+/*
+ * since this can run on a client (engine bug with 3den object expression),
+ * do the waiting on the server, in case the client disconnects during
+ * the waiting
+ */
+if (!isServer) exitWith {
+    _this remoteExecCall ["a3aa_ee_team_colors_fnc_setColor", 2];
+};
+
 0 = _this spawn {
     /*
      * the game seems to ignore any color settings for a few seconds

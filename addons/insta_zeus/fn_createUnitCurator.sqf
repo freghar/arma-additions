@@ -1,4 +1,10 @@
-/* called from an Eden object attribute, server only */
+/*
+ * since this can run on a client (engine bug with 3den object expression),
+ * re-exec it on server if this happens
+ */
+if (!isServer) exitWith {
+    _this remoteExecCall ["a3aa_insta_zeus_fnc_createUnitCurator", 2];
+};
 
 /*
  * Idea:
