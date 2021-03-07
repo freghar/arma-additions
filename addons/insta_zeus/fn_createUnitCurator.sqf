@@ -49,9 +49,9 @@ private "_curator";
 if (isNil "_curator" && time <= 0) then {
     _curator = ([] call a3aa_insta_zeus_fnc_mkCurator);
     a3aa_insta_zeus_unit_curators pushBack _curator;
-    [_unit, _curator] spawn a3aa_insta_zeus_fnc_assignCurator;
+    _unit assignCurator _curator;
 } else {
     if (!isNil "_curator") then {
-        [_unit, _curator] spawn a3aa_insta_zeus_fnc_assignCurator;
+        _unit assignCurator _curator;
     };
 };

@@ -261,7 +261,14 @@ if (isNil "zen_custom_modules_fnc_register") exitWith {};
             if (!isNull getAssignedCuratorLogic _this) exitWith {};
             /* TODO: when adding curator recycling logic, pass no arg */
             private _curator = _this call a3aa_insta_zeus_fnc_mkCurator;
-            [_this, _curator] spawn a3aa_insta_zeus_fnc_assignCurator;
+            0 = [_curator, _this] spawn {
+                params ["_curator", "_unit"];
+                private _end = time + 10;
+                waitUntil {
+                    _unit assignCurator _curator;
+                    !isNull getAssignedCuratorUnit _curator || time > _end;
+                };
+            };
         }] remoteExec ["call", 2];
     },
     "\a3\Modules_F_Curator\Data\portraitCurator_ca.paa"
