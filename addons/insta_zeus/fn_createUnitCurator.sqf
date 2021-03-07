@@ -39,17 +39,6 @@ if (isNil "a3aa_insta_zeus_unit_curators") then {
     a3aa_insta_zeus_unit_curators = [];
 };
 
-if (isNil "a3aa_insta_zeus_disconnect_unassign") then {
-    a3aa_insta_zeus_disconnect_unassign = true;
-    addMissionEventHandler ["HandleDisconnect", {
-        params ["_unit", "_id", "_uid", "_name"];
-        private _curator = getAssignedCuratorLogic _unit;
-        if (!isNull _curator) then {
-            unassignCurator _curator;
-        };
-    }];
-};
-
 private "_curator";
 {
     if (isNull getAssignedCuratorUnit _x) exitWith {

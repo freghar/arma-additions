@@ -40,6 +40,7 @@ Issues:
 The current code seems to somehow work, except when re-connecting (as the dead
 unit has curator assigned), which is worked around by unassignCurator in the
 HandleDisconnect EH and hoping that it completes before the player re-connects.
-Respawns break this unless taken care of by other logic.
+Respawns are taken care of by the same function (respawnCurator) by re-assigning
+the curator to the new unit, hoping that it happens before HandleDisconnect.
 
 I'm done.

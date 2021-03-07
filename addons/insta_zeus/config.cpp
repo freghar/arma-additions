@@ -17,11 +17,8 @@ class CfgFunctions {
             class mkCuratorAddEHs;
             class createAdminCurator { postInit = 1; };
             class createUnitCurator;
-        };
-        class per_client {
-            file = "\a3aa\insta_zeus\per_client";
-            class addPlayer { postInit = 1; };
-            class onRespawn { postInit = 1; };
+            class respawnCurator { preInit = 1; };
+            class addPlayers { postInit = 1; };
         };
     };
 };
