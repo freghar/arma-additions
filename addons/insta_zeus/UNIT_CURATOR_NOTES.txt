@@ -1,0 +1,45 @@
+This is a big clusterf*ck and the current implementation has known issues,
+but it's the best I could do without creating a new operating system for
+handling all the engine bugs.
+
+Issues:
+
+ 1) assignCurator / unassignCurator don't have an immediate effects if the
+    unit passed (or curator logic, when assigned) is REMOTE - not even on
+    "next frame", it's just undeterministic "some time later"
+    - this makes keeping lists of available curators impossible without some
+      always-running loop that unassigns !alive units, so that they're
+      immediately available later when the player re-joins, because otherwise
+      you get races when two or more players join, each using independent
+      waiting loops - both may be waiting for assignment of the same curator
+      logic, because it's impossible to find an unassigned curator due to
+      the "some time later" inconsistency
+
+ 2) assigned curator is sometimes re-set on unit locality change (JIP unit
+    creation) - this doesn't seem to happen if a curator is assigned on the
+    same frame as the expression= logic from a 3den attribute, but it does
+    reset if done via spawned code before the unit is transferred
+    - assignCurator succeeds, getAssignedCuratorLogic returns correct logic
+      on the unit, but it just gets magically un-assigned later
+    - the solution would be to request assignment later on from the client side
+      (PreloadFinished), but we need all curators to be created at that time,
+      see [3] below
+
+ 3) lobby slots don't have persistency - every unit and group gets a new netId
+    and new object on every join, even during time == 0, before game start
+    - this makes it nearly impossible to keep a deterministic list of curators
+      and re-assign a previously created one if the client re-connects, because
+      there's nothing to use as an index, there's no "lobby slot id"
+    - we could maintain obj-to-curator mapping and try to find an "unused"
+      curator by searching the mapping array for objNull object, but we would
+      need to do cleanup first (because of dead units), for which we would need
+      unassignCurator, but that doesn't work at the same time as a later
+      assignCurator would, because of the (un)assignment delays described in [1]
+      so all this turns into a big mess
+
+The current code seems to somehow work, except when re-connecting (as the dead
+unit has curator assigned), which is worked around by unassignCurator in the
+HandleDisconnect EH and hoping that it completes before the player re-connects.
+Respawns break this unless taken care of by other logic.
+
+I'm done.
