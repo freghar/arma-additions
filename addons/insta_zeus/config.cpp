@@ -15,6 +15,7 @@ class CfgFunctions {
             file = "\a3aa\insta_zeus";
             class mkCurator;
             class mkCuratorAddEHs;
+            class assignCurator;
             class createAdminCurator { postInit = 1; };
             class createUnitCurator;
         };
