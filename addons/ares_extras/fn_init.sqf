@@ -81,17 +81,16 @@ if (isNil "zen_custom_modules_fnc_register") exitWith {};
                 [_x, {
                     private _isfleeing = _this getVariable "a3aa_ares_extras_fleeing";
                     if (isNil "_isfleeing") then {
+                        _this setVariable ["a3aa_ares_extras_fleeing", true, true];
                         {
                             _x setUnitPos "UP";
                             _x disableAI "AUTOCOMBAT";
                             _x disableAI "AUTOTARGET";
                             _x disableAI "TARGET";
                             _x disableAI "SUPPRESSION";
-                            {
-                                _this forgetTarget _x;
-                            } forEach (_x targets []);
+                            { _this forgetTarget _x } forEach (_x targets []);
                         } forEach units _this;
-                        _this setBehaviour "AWARE";
+                        _this setCombatMode "BLUE";
                         _this setSpeedMode "FULL";
                         _this spawn {
                             sleep 120;
@@ -100,10 +99,12 @@ if (isNil "zen_custom_modules_fnc_register") exitWith {};
                                 _x enableAI "AUTOTARGET";
                                 _x enableAI "TARGET";
                                 _x enableAI "SUPPRESSION";
+                                _x setUnitPos "AUTO";
                             } forEach units _this;
+                            _this setCombatMode "YELLOW";
+                            _this setSpeedMode "NORMAL";
                             _this setVariable ["a3aa_ares_extras_fleeing", nil, true];
                         };
-                        _this setVariable ["a3aa_ares_extras_fleeing", true, true];
                     };
                 }] remoteExec ["call", leader _x];
             } forEach _this;
