@@ -3,8 +3,7 @@
  */
 
 class CfgPatches {
-    //TODO: rename to a3aa_mtc_rhs_flashlights during some bigger update
-    class a3aa_mtc_rhs_map_flashlights {
+    class a3aa_mtc_rhs_flashlights {
         units[] = {};
         weapons[] = {};
         requiredAddons[] = {
