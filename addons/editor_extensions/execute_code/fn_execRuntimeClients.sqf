@@ -1,17 +1,17 @@
 params ["_execenv", "_runoninit", "_runonrespawn", "_code",
-        "_keepmodule", "_module", "_uid"];
+        "_module", "_uid"];
 
 if (_runoninit) then {
     switch (_execenv) do {
         case 0: {
-            if (_keepmodule) then {
+            if (!isNull _module) then {
                 _module call _code;
             } else {
                 [] call _code;
             };
         };
         case 1: {
-            if (_keepmodule) then {
+            if (!isNull _module) then {
                 _module spawn _code;
             } else {
                 [] spawn _code;
@@ -23,7 +23,7 @@ if (_runoninit) then {
 if (_runonrespawn) then {
     /* globalize code and module, so that respawn EH can access them */
     missionNamespace setVariable [_uid+"code", _code];
-    if (_keepmodule) then {
+    if (!isNull _module) then {
         missionNamespace setVariable [_uid+"mod", _module];
     };
 
