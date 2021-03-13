@@ -10,9 +10,9 @@ class CfgFunctions {
     class a3aa_ee_ambient_anim {
         class all {
             file = "\a3aa\ee\ambient_anim";
-            class scheduleAnim;
-            class broadcastAnim;
+            class parse;
             class doAnim;
+            class cancelAnim;
         };
     };
 };
@@ -74,7 +74,7 @@ class CfgVehicles {
             };
         };
         class EventHandlers : EventHandlers {
-            class a3aa_ee_ambient_anim { init = "if (isServer) then { (_this select 0) call a3aa_ee_ambient_anim_fnc_scheduleAnim }"; };
+            class a3aa_ee_ambient_anim { init = "if (isServer) then { (_this select 0) call a3aa_ee_ambient_anim_fnc_parse }"; };
         };
     };
 };
