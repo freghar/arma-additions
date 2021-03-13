@@ -59,15 +59,14 @@ a3aa_ai_dynamic_skill_units_consumable = [];
      */ 
     if (!isServer) exitWith {};
 
-    addMissionEventHandler ["EachFrame", {
-        if (a3aa_ai_dynamic_skill_units_consumable isEqualTo []) then {
+    [
+        {
             a3aa_ai_dynamic_skill_units = a3aa_ai_dynamic_skill_units - [objNull];
-            a3aa_ai_dynamic_skill_units_consumable = +a3aa_ai_dynamic_skill_units;
-        } else {
-            /* pop last unit in the array, process it */
-            private _units = a3aa_ai_dynamic_skill_units_consumable;
-            (_units deleteAt (count _units - 1))
-                call a3aa_ai_dynamic_skill_fnc_updateUnit;
-        };
-    }];
+            a3aa_ai_dynamic_skill_units;
+        },
+        {
+            _this call a3aa_ai_dynamic_skill_fnc_updateUnit;
+        },
+        10
+    ] call a3aa_fnc_balancePerFrame;
 }] call CBA_fnc_addEventHandler;
