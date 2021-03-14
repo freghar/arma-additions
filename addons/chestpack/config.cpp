@@ -23,6 +23,7 @@ class CfgFunctions {
             class removeChestpack;
             class setBackpack;
             class removeBackpack;
+            class clearOnRespawn { postInit = 1; };
         };
     };
 };
