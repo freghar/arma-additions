@@ -27,9 +27,11 @@ class CfgVideoOptions {
         NAME_VAL(extra_ultra,"Extra Ultra",32);
     };
     class Visibility {
+        minValue = 100;
         maxValue = 50000;
     };
     class ObjectsVisibility {
+        minValue = 100;
         maxValue = 50000;
     };
 #ifdef did_not_have_significant_effect
