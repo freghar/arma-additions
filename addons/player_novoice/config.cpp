@@ -7,7 +7,9 @@ class CfgPatches {
     class a3aa_player_novoice {
         units[] = {};
         weapons[] = {};
-        requiredAddons[] = {};
+        requiredAddons[] = {
+            "a3aa_functions"
+        };
     };
 };
 

@@ -2,7 +2,9 @@ class CfgPatches {
     class a3aa_join_group {
         units[] = {};
         weapons[] = {};
-        requiredAddons[] = {};
+        requiredAddons[] = {
+            "a3aa_functions"
+        };
     };
 };
 

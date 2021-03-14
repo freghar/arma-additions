@@ -2,7 +2,10 @@ class CfgPatches {
     class a3aa_ee_shared {
         units[] = {};
         weapons[] = {};
-        requiredAddons[] = {"3den"};
+        requiredAddons[] = {
+            "a3aa_functions",
+            "3den"
+        };
     };
 };
 

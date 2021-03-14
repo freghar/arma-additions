@@ -3,6 +3,7 @@ class CfgPatches {
         units[] = {};
         weapons[] = {};
         requiredAddons[] = {
+            "a3aa_functions",
             "A3_Modules_F_Curator_Respawn"
         };
     };
