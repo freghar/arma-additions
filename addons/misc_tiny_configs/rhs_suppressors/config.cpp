@@ -3,6 +3,7 @@
  */
 
 class CfgPatches {
+    class rhsusf_c_weapons;
     class a3aa_mtc_rhs_suppressors {
         units[] = {};
         weapons[] = {};
@@ -12,6 +13,7 @@ class CfgPatches {
             "rhsusf_c_weapons",  /* rhsusf_silencer_base */
             "rhs_c_weapons"      /* rhs_silencer_base */
         };
+        addonRootClass = "rhsusf_c_weapons";
     };
 };
 

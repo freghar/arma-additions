@@ -4,12 +4,14 @@
  */
 
 class CfgPatches {
+    class A3_Weapons_F;
     class a3aa_mtc_smoke_bounce {
         units[] = {};
         weapons[] = {};
         requiredAddons[] = {
             "A3_Weapons_F"
         };
+        addonRootClass = "A3_Weapons_F";
     };
 };
 

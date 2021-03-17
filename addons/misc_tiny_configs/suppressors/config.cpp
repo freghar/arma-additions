@@ -4,6 +4,7 @@
  */
 
 class CfgPatches {
+    class A3_Weapons_F_Acc;
     class a3aa_mtc_suppressors {
         units[] = {};
         weapons[] = {};
@@ -16,6 +17,7 @@ class CfgPatches {
             "A3_Weapons_F_Mod",
             "ace_ballistics"  /* muzzle_snds_* overrides */
         };
+        addonRootClass = "A3_Weapons_F_Acc";
     };
 };
 

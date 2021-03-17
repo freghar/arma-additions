@@ -3,12 +3,14 @@
  */
 
 class CfgPatches {
+    class A3_Weapons_F_Acc;
     class a3aa_mtc_bright_flashlight {
         units[] = {};
         weapons[] = {};
         requiredAddons[] = {
             "A3_Weapons_F_Acc"
         };
+        addonRootClass = "A3_Weapons_F_Acc";
     };
 };
 

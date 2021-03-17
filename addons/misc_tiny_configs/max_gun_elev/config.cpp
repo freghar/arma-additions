@@ -3,6 +3,7 @@
  */
 
 class CfgPatches {
+    class A3_Characters_F;
     class a3aa_mtc_max_gun_elev {
         units[] = {};
         weapons[] = {};
@@ -11,6 +12,7 @@ class CfgPatches {
             "A3_Characters_F",
             "ace_movement"
         };
+        addonRootClass = "A3_Characters_F";
     };
 };
 

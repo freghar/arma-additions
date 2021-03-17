@@ -3,6 +3,7 @@
  */
 
 class CfgPatches {
+    class rhs_c_weapons;
     class a3aa_mtc_rhs_flashlights {
         units[] = {};
         weapons[] = {};
@@ -10,6 +11,7 @@ class CfgPatches {
             "rhs_c_weapons",    // rhs_acc_2dpZenit
             "rhsusf_c_weapons"  // rhsusf_acc_anpeq15_light
         };
+        addonRootClass = "rhs_c_weapons";
     };
 };
 

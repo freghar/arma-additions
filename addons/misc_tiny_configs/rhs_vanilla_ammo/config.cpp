@@ -11,6 +11,7 @@
  */
 
 class CfgPatches {
+    class rhsusf_c_weapons;
     class a3aa_mtc_rhs_vanilla_ammo {
         units[] = {};
         weapons[] = {};
@@ -18,6 +19,7 @@ class CfgPatches {
             "rhsusf_c_weapons",
             "rhs_c_weapons"
         };
+        addonRootClass = "rhsusf_c_weapons";
     };
 };
 

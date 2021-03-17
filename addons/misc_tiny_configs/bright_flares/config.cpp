@@ -5,6 +5,7 @@
  */
 
 class CfgPatches {
+    class A3_Weapons_F;
     class a3aa_mtc_bright_flares {
         units[] = {};
         weapons[] = {};
@@ -12,6 +13,7 @@ class CfgPatches {
             "A3_Weapons_F",
             "ace_grenades"     // overwrites flare intensity
         };
+        addonRootClass = "A3_Weapons_F";
     };
 };
 
