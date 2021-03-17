@@ -34,7 +34,7 @@ Aside from the mandatory dependencies (see Versions above), these additions make
 use of and configure (but not depend on):
 
 * ACEX - [github](https://github.com/acemod/ACEX/) or [steam](https://steamcommunity.com/workshop/filedetails/?id=708250744)
-* Achilles - [github](https://github.com/ArmaAchilles/Achilles) or [steam](https://steamcommunity.com/workshop/filedetails/?id=723217262)
+* Zeus Enhanced (ZEN) - [github](https://github.com/zen-mod/ZEN/) or [steam](https://steamcommunity.com/sharedfiles/filedetails/?id=1779063631)
 * ACRE2 - [github](https://github.com/IDI-Systems/acre2) or [steam](https://steamcommunity.com/sharedfiles/filedetails/?id=751965892)
 
 Features
@@ -42,10 +42,12 @@ Features
 
 * **acre_unconscious** - prevent (vanilla) unconscious players from talking over ACRE2 direct/radio
 * **ai** - dynamic AI skill setting based on combat mode, vehicles, etc., and related AI configs
-  * **dynamic_skill** - the dynamic AI skill logic itself
   * **cfg_ai_skill** - CfgAISkill tuning to reference an absolute 0-1 scale
+  * **crew_in_immobile** - makes AI crew stay inside a vehicle with destroyed wheels and get out only if explosion is imminent
+  * **dynamic_skill** - the dynamic AI skill logic itself
+  * **enter_buildings** - adjustment of indoor preferences, making AI more likely go through buildings to their WP destinations
   * **level_presets** - CfgAILevelPresets tuning to make Regular/Veteran difficulties use 1.0 AI skill scaling
-* **ares_extras** - additions to (former) Ares, now Achilles
+* **ares_extras** - additions to (former) Ares, then Achilles, now ZEN
   * **Forget enemies** - incredibly useful if AI suddenly spots sneaky players and you don't want to break the immersion
   * **Reveal enemies** - useful to make AI start shooting on a target which should be obvious
   * **Watch** - makes AI turn to watch a direction (ie. tank turret)
@@ -56,11 +58,10 @@ Features
   * **Force WP Setting** - if you set yellow face (AWARE) on a waypoint, this forces it even if AI gets shot at
   * **No Talking** - because elite infiltrators shouldn't shout when they spot you
   * **Locality - Get/Set** - for moving units between server/client/HC
-  * **Give Zeus to player (may crash)** - still crashes less than Achilles' version of this :)
-  * **Set player insignia (in profile)** - if you set unit insignia in editor to use per-player insignia, this sets it for that specific player
+  * **Promote to Zeus (lightweight)** - creates a new Curator and assigns it to the player, but without the extra sauce ZEN adds
   * **Terrain Objects Hide/Show** - pretty obvious, doesn't work persistenly though
-  * **Set new player unit** - basically what Achilles does on Alt+doubleclick, but for another client, not Zeus
-  * **End Mission - Won/Lost** - yeah, that
+  * **Set new player unit** - basically what Achilles used to do on Alt+doubleclick, but for another client, not Zeus
+  * **End Mission - Won/Lost** - with an extra export call to CNTO's mission recording addon
   * **Move respawn** - set new position for the respawn_\* map marker placed in editor
   * **Move JIP teleport point** - same, but for the JIP teleport editor module
   * **Delete units (really)** - very handy if pressing the Delete key throws an error msg because Arma
@@ -71,35 +72,32 @@ Features
   * **acre_channels** - pre-set channels for (multiple) ACRE2 radios a unit might have, complete with in-game Journal entries
   * **ambient_anim** - a module to make linked units animate, MP-synced, optionally aborts when unit enters combat
   * **arsenal_respawn** - save starting Arsenal loadout, restore it on respawn
+  * **attach_synced** - visually position an ammo box on a quadbike's back and sync both to this module, magic happens
   * **basic_vehicle_cargo** - replace default vehicle contents (NLAW, etc.) with something else
     * (can be overriden on a per-vehicle basis via checkbox in editor)
+  * **briefing** - populates in-game Journal with OPORD-style entries, uses Arma's Structured Text formatting (see wiki)
+  * **custom_location** - create a Location like a new town/village/castle/bus/etc., works with insta_osd and is visible on map
   * **execute_code** - run any SQF code you want, in editor (useful for running something on composition placement) or in game
   * **extended_gear** - force facewear, face, insignia and other on a player avatar
   * **insta_osd** - print nearest town/village/etc. on-screen when the game starts
+  * **kill_on_jip** - kill a player on JIP, a more gruesome alternative to teleport, for one-life missions
   * **locality_transfer** - transfer units to a client / HC on mission start, doesn't work too reliably because Arma
+  * **move_respawn** - moves the respawn_\* marker to the location of this module - unlike the marker, this works in 3D! (use for battleships)
   * **paper_map** - prevents magical map marker sharing, except for a defined radius around the author
   * **persistent_callsign** - useful for compositions as Arma likes to reset callsigns in editor all the time; pre-set in group attributes, Tools menu to copy it to callsign field
   * **playable_ai** - if playing with AI in player slots, order the AI to stop, hold fire, go prone, etc. to avoid acting stupid, useful on stealth missions
+  * **remove_ace_eh** - selectively removes ACE's Medical HandleDamage Event Handler, leaving the engine to handle damage, helping with lag in MP
+  * **simple_object** - adds a "Simple Object (universal)" checkbox that works with any object, not just the BI-approved ones
+  * **stay_and_watch** - adds two checkboxes to soldiers making them (MP-safe) stay in place (disabled PATH) and look a certain way, even in a group
   * **team_colors** - pre-defines unit colors in a group, works with sthud or vanilla command bar
+  * **teleport_on_jip** - teleports any players who Join-In-Progress to where you place this module
   * **validate_mission** - various sanity checks under Tools menu (bad ACRE2 radios, overloaded units, etc.), paste result in notepad for examination
-  * **modules** - other tiny modules that didn't warrant their own editor_extension
-    * **Custom Location** - create a Location like a new town/village/castle/bus/etc., works with insta_osd and is visible on map
-    * **Briefing (OPORD)** - populates in-game Journal, uses Arma's Structured Text formatting (see wiki)
-    * **Teleport on JIP** - teleports any players who Join-In-Progress to where you place this module
-    * **Move respawn** - moves the respawn_\* marker to the location of this module - unlike the marker, this works in 3D! (use for battleships)
-    * **Attach synced** - visually position an ammo box on a quadbike's back and sync both to this module, magic happens
-    * **Kill player on JIP** - a more gruesome alternative to teleport, for one-life missions
   * **menu** - other tiny items under the top menubar -> Tools that aren't part of other editor_extensions
     * **Fill in Role Description** - a quick way to make sensible unit lobby names from unit classname and group callsign, handy for custom callsigns
-* **functions**
-  * **cargo** - 'box guard' against impulse looting by weaklings
-  * **cbuff** - lightweight circular buffer (programming thing)
-  * **hash** - lightweight hash table (programming thing)
-  * **misc** - unclassified helpers
-  * **saveload** - persistent box/vehicle/terrain save/load, used by my old guer campaign
+* **functions** - miscellaneous functions, used by some other addons in this repository, but also usable by external scripts
 * **grasskeys** - CBA configurable hotkeys for setting terrain complexity (and hiding grass because AI cheats too)
-* **infopanel_control** - CBA configurable left/right panel UI, allows you to disable vanilla mine detector UI, GPS, etc. even if player has the item
-* **insta_zeus** - Zeus (Curator) and ACE Arsenal anytime, anywhere in SP, or for host / logged in admin in MP, no editor support needed
+* **insta_arsenal** - Vanilla or ACE Arsenal through a CBA keybind, anywhere in SP, or for any Zeus in MP
+* **insta_zeus** - Zeus (Curator) anytime, anywhere in SP, or for host / logged in admin in MP, no editor support needed
 * **join_group** - vanilla action to join another player's group or (if leader) make another player of own group a leader
 * **loadout_copier** - copy/pastes loadout in `getUnitLoadout` format to/from clipboard using a keybind
   * works in Eden editor, Zeus and in 1st/3rd person (separate keybind for convenience)
@@ -108,13 +106,14 @@ Features
 * **map_trackers** - group map tracking using NATO symbols + single-soldier tracking using soldier map icons
 * **marker_enh** - map markers enhanced, rotating via shift+drag, moving via alt+drag
 * **misc_tiny_configs** - various Config structure tweaks and (mostly) fixes
+  * **better_video_settings** - extends view distance sliders, adds greater PiP range dropdown items, etc.
   * **bright_flares** - Arma lighting update broke all lighting, this makes flares at least somewhat usable again
   * **bright_flashlight** - same, but for the default vanilla flashlight; also fix light intensity being different for self vs others
   * **cfglights_fixes** - various CfgLights tweaks to fix fireplaces / grenade flashes / etc. after Arma 3 v1.60+
   * **collapsed_3den** - Eden editor has BLUFOR->NATO->Men expanded by default, this collapses it (presuming you want modded units instead)
   * **difficulties** - misc Arma difficulty (Regular/Veteran) tweaks for convenience, no effect when Custom is used
+  * **dummy_mission_deps** - provides legacy entries for mission addons[], so older/existing missions load without errors
   * **flag_insignia** - vanilla "country flags" used for map markers, but now available as uniform insignia
-  * **hide_actions** - hide the Eject action for safety, use a (vanilla) keybind for ejecting
   * **max_gun_elev** - no angle limitation on soldier aiming upwards/downwards
   * **portable_boat** - a boat in a backpack, what more do you want? .. unpack/repack like a mortar, cool for specop missions
   * **puffy_smoke** - smoke hand/rifle grenades are slightly better, but not as cartoonish as ACE optionals/particles
@@ -122,9 +121,9 @@ Features
   * **rhs_suppressors** - like suppressors tweak, but for rhs M4/AK/etc. suppressors
   * **rhs_vanilla_ammo** - like smoke_bounce tweak, by making RHS UGLs use vanilla shells (when fired, not magazines)
   * **sight_alignment** - introduce more pronounced iron sight / red dot misalignment when moving the weapon around
-  * **silent_op** - a special "Silent Operative" unit (under CIV)
-    * has much quieter footstep sounds and is nearly invisible to AI without NVGs during dusk/dawn/night
-    * highly trained, can hack UAVs, is medic/engineer, can bury bodies like in Operation Flashpoint!
+  * **silent_op** - special "Silent Operative" and "Silent Operative (Expert)" units (under CIV)
+    * have much quieter footstep sounds and are nearly invisible to AI without NVGs during dusk/dawn/night
+    * the Expert variant is highly trained, can hack UAVs, is medic/engineer, can bury bodies like in Operation Flashpoint!
     * to use, (1) place any blue/red/green soldier, (2) place SilentOP, (3) group-link SilentOp to b/r/g soldier, (4) delete original b/r/g soldier (just the soldier icon, not group icon), (5) SilentOp is now blue/red/green
   * **smoke_bounce** - tone down UGL smoke bounce on impact, they're not rubber balls anymore
   * **stamina_tweak** - making vanilla stamina system more realistic
