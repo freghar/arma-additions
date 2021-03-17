@@ -218,8 +218,8 @@ a full list.
       reviveMode = 1;
       reviveUnconsciousStateMode = 0;
       reviveRequiredTrait = 0;
-      reviveRequiredItems = 2;                
-      reviveRequiredItemsFakConsumed = 1;     
+      reviveRequiredItems = 2;
+      reviveRequiredItemsFakConsumed = 1;
       reviveDelay = 60;
       reviveMedicSpeedMultiplier = 3;
       reviveForceRespawnDelay = 3;

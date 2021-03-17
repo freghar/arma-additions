@@ -56,7 +56,7 @@ a3aa_ai_dynamic_skill_units_consumable = [];
      * own units, but locality transfers would be a nightmare with all the state
      * variables (or network spam if we were to always broadcast them), so just
      * keep this server-only
-     */ 
+     */
     if (!isServer) exitWith {};
 
     [

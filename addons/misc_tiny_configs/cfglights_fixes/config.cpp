@@ -76,7 +76,7 @@ class CfgLights {
             MINIMAL_ATTENUATION
         };
     };
-    
+
     /*
      * burning vehicle wrecks
      * - these are fine in vanilla, but use sub-1 quadratic and also
@@ -315,4 +315,3 @@ class CfgLights {
         };
     };*/
 };
-

@@ -1,6 +1,6 @@
 params ["_unit", "_value"];
 
-private _preconfigured = 
+private _preconfigured =
     getNumber (configOf _unit >> "SimpleObject" >> "eden") == 1;
 
 /*
