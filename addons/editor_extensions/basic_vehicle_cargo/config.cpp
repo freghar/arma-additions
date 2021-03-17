@@ -7,6 +7,7 @@
  */
 
 class CfgPatches {
+    class a3aa_ee_shared;
     class a3aa_ee_basic_vehicle_cargo {
         units[] = {};
         weapons[] = {};
@@ -16,6 +17,7 @@ class CfgPatches {
             "cba_events",
             "cba_xeh"     /* dynamic class hook from module */
         };
+        addonRootClass = "a3aa_ee_shared";
     };
 };
 

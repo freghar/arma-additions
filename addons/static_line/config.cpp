@@ -1,4 +1,5 @@
 class CfgPatches {
+    class A3_Air_F_Beta;
     class a3aa_static_line {
         units[] = {};
         weapons[] = {};
@@ -6,6 +7,7 @@ class CfgPatches {
             "A3_Air_F_Beta",          // NonSteerable_Parachute_F
             "A3_Weapons_F_Ammoboxes"  // B_Parachute
         };
+        addonRootClass = "A3_Air_F_Beta";
     };
 };
 

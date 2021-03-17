@@ -3,6 +3,7 @@
  */
 
 class CfgPatches {
+    class A3_Boat_F_Boat_Transport_01;
     class a3aa_mtc_portable_boat {
         units[] = { "a3aa_mtc_portable_boat_boat" };
         weapons[] = {};
@@ -10,6 +11,7 @@ class CfgPatches {
             "A3_Static_F",
             "A3_Boat_F_Boat_Transport_01"
         };
+        addonRootClass = "A3_Boat_F_Boat_Transport_01";
     };
 };
 

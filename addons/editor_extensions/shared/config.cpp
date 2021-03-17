@@ -1,4 +1,5 @@
 class CfgPatches {
+    class 3den;
     class a3aa_ee_shared {
         units[] = {};
         weapons[] = {};
@@ -6,6 +7,7 @@ class CfgPatches {
             "a3aa_functions",
             "3den"
         };
+        addonRootClass = "3den";
     };
 };
 

@@ -2,6 +2,7 @@
  * make NVGs full-screen and ACE-like in visual appearance
  */
 class CfgPatches {
+    class A3_Weapons_F;
     class a3aa_nightvision {
         units[] = {};
         weapons[] = {};
@@ -11,6 +12,7 @@ class CfgPatches {
             "cba_events",
             "cba_xeh"
         };
+        addonRootClass = "A3_Weapons_F";
     };
 };
 

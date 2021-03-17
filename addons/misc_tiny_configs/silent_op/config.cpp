@@ -3,6 +3,7 @@
  */
 
 class CfgPatches {
+    class A3_Characters_F;
     class a3aa_mtc_silent_op {
         units[] = {
             "a3aa_silent_ops_silent_operative",
@@ -13,6 +14,7 @@ class CfgPatches {
         requiredAddons[] = {
             "A3_Characters_F"
         };
+        addonRootClass = "A3_Characters_F";
     };
 };
 

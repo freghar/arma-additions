@@ -1,8 +1,10 @@
 class CfgPatches {
+    class a3aa_ee_shared;
     class a3aa_ee_move_respawn {
         units[] = {};
         weapons[] = {};
         requiredAddons[] = {"a3aa_ee_shared"};
+        addonRootClass = "a3aa_ee_shared";
     };
 };
 
