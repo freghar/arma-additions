@@ -29,5 +29,5 @@ if (!isServer) exitWith {
         waitUntil { !isNull player };
         waitUntil { !isNil "a3aa_preload_finished" };
         _unit assignTeam _color;
-    }] remoteExec ["spawn", _unit];
+    }] remoteExec ["spawn", _this];
 };
