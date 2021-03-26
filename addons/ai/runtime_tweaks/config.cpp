@@ -1,5 +1,5 @@
 class CfgPatches {
-    class a3aa_ai_crew_in_immobile {
+    class a3aa_ai_runtime_tweaks {
         units[] = {};
         weapons[] = {};
         requiredAddons[] = {
@@ -11,16 +11,16 @@ class CfgPatches {
 };
 
 class CfgFunctions {
-    class a3aa_ai_crew_in_immobile {
+    class a3aa_ai_runtime_tweaks {
         class all {
-            file = "\a3aa\ai\crew_in_immobile";
+            file = "\a3aa\ai\runtime_tweaks";
             class init;
         };
     };
 };
 
 class Extended_PreInit_EventHandlers {
-    class a3aa_ai_crew_in_immobile {
-        init = "[] call a3aa_ai_crew_in_immobile_fnc_init";
+    class a3aa_ai_runtime_tweaks {
+        init = "[] call a3aa_ai_runtime_tweaks_fnc_init";
     };
 };

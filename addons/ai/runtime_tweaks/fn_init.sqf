@@ -7,6 +7,18 @@
     true   /* isGlobal */
 ] call CBA_settings_fnc_init;
 
+[
+    "a3aa_ai_disable_remote_raycasts",
+    "CHECKBOX",
+    ["Disable remote raycasts", "Save some CPU time by not calculating visibility raycasts (knowsAbout, etc.) for purely REMOTE groups.\nUnless you need to query AI targets of remote AI units from script, this should be safe.\n\nSee the disableRemoteSensors command on BI wiki."],
+    ["Arma Additions", "AI"],
+    true,  /* default */
+    true,  /* isGlobal */
+    {
+        disableRemoteSensors _this;
+    }
+] call CBA_settings_fnc_init;
+
 ["CBA_settingsInitialized", {
     if (!a3aa_ai_crew_in_immobile_enabled) exitWith {};
     {
