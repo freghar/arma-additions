@@ -16,8 +16,18 @@ for "_i" from 0 to 10000 do {
         if (_ent in (all3DENEntities select 3)) then { _fail = _ent };
     };
 };
+
+private _msg = [
+    "Virtual entities were placed before actual playable soldiers.",
+    "This can happen if you place Virtual Spectator / Headless Client logic",
+    "entities or modules *before* you place playable soldiers, resulting in",
+    "default MP lobby page being Virtual, not BLUFOR/OPFOR/Independent.",
+    "Fix it by cut-pasting (ctrl-x, ctrl-v) the virtual units, so they're",
+    "last again in the global ordering of units."
+];
+
 if (isNil "_fail") then {
-    true;
+    [["Playable unit ordering", true]];
 } else {
-    [false, [_ent]];
+    [["Playable unit ordering", false, [_ent], _msg]];
 };
