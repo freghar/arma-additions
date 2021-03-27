@@ -6,7 +6,6 @@ class CfgPatches {
     class a3aa_mtc_view_distance {
         units[] = {};
         weapons[] = {};
-        magazines[] = {};
         requiredAddons[] = {
             "A3_Ui_F"
         };

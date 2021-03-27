@@ -7,7 +7,6 @@ class CfgPatches {
     class a3aa_mtc_suppressors {
         units[] = {};
         weapons[] = {};
-        magazines[] = {};
         requiredAddons[] = {
             "A3_Weapons_F",
             "A3_Weapons_F_Acc",

@@ -6,7 +6,6 @@ class CfgPatches {
     class a3aa_mtc_flag_insignia {
         units[] = {};
         weapons[] = {};
-        magazines[] = {};
         requiredAddons[] = {};
     };
 };

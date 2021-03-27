@@ -6,7 +6,6 @@ class CfgPatches {
     class a3aa_ai_level_presets {
         units[] = {};
         weapons[] = {};
-        magazines[] = {};
         requiredAddons[] = {};
     };
 };

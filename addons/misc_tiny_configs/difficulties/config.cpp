@@ -6,7 +6,6 @@ class CfgPatches {
     class a3aa_mtc_difficulties {
         units[] = {};
         weapons[] = {};
-        magazines[] = {};
         requiredAddons[] = {
             "A3_Data_F"
         };

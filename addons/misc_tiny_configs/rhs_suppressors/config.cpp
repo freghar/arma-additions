@@ -6,7 +6,6 @@ class CfgPatches {
     class a3aa_mtc_rhs_suppressors {
         units[] = {};
         weapons[] = {};
-        magazines[] = {};
         requiredAddons[] = {
             "a3aa_mtc_suppressors",
             "rhsusf_c_weapons",  /* rhsusf_silencer_base */

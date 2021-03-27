@@ -9,7 +9,6 @@ class CfgPatches {
     class a3aa_mtc_better_video_settings {
         units[] = {};
         weapons[] = {};
-        magazines[] = {};
         requiredAddons[] = {};
     };
 };

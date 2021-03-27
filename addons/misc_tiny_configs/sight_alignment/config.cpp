@@ -9,7 +9,6 @@ class CfgPatches {
     class a3aa_mtc_sight_alignment {
         units[] = {};
         weapons[] = {};
-        magazines[] = {};
         requiredAddons[] = {
             "A3_Data_F"
         };

@@ -8,7 +8,6 @@ class CfgPatches {
     class a3aa_ai_enter_buildings {
         units[] = {};
         weapons[] = {};
-        magazines[] = {};
         requiredAddons[] = { "A3_Data_F" };
     };
 };

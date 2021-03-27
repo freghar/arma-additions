@@ -9,7 +9,6 @@ class CfgPatches {
             "a3aa_silent_ops_silent_expert"
         };
         weapons[] = {};
-        magazines[] = {};
         requiredAddons[] = {
             "A3_Characters_F"
         };

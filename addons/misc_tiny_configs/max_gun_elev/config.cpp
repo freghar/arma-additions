@@ -6,7 +6,6 @@ class CfgPatches {
     class a3aa_mtc_max_gun_elev {
         units[] = {};
         weapons[] = {};
-        magazines[] = {};
         requiredAddons[] = {
             "A3_Characters_F",
             "ace_movement"
