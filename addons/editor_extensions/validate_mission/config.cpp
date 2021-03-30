@@ -22,6 +22,7 @@ class CfgFunctions {
             class checkOverload;
             class checkAcreIds;
             class checkOrdering;
+            class checkPersistentCallsign;
         };
     };
 };
@@ -57,4 +58,5 @@ class Extended_PreInit_EventHandlers {
     REGISTER(checkOverload);
     REGISTER(checkAcreIds);
     REGISTER(checkOrdering);
+    REGISTER(checkPersistentCallsign);
 };
