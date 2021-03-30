@@ -4,30 +4,43 @@
  *   playable units, or if the playable units are deleted and placed again
  */
 
-private ["_i", "_ent", "_fail"];
+private _pass = {
+    [["Playable unit ordering", true]];
+};
 
-/* entity IDs have gaps and there's no way to get the highest one, so guess */
-for "_i" from 0 to 10000 do {
-    _ent = get3DENEntity _i;
-    if (!isNil "_ent" && {_ent isEqualType objNull} &&
-            {(_ent get3DENAttribute "ControlSP") isEqualTo [true] ||
-             (_ent get3DENAttribute "ControlMP") isEqualTo [true]}) exitWith {
-        /* fail if logic, because we expect Playable non-logic first */
-        if (_ent in (all3DENEntities select 3)) then { _fail = _ent };
+private _units = playableUnits;
+private _systems = units sideLogic;
+
+/* player can, but might not be part of playableUnits */
+if (!isNull player) then {
+    if (side player == sideLogic) then {
+        _systems pushBackUnique player;
+    } else {
+        _units pushBackUnique player;
     };
 };
 
-private _msg = [
-    "Virtual entities were placed before actual playable soldiers.",
-    "This can happen if you place Virtual Spectator / Headless Client logic",
-    "entities or modules *before* you place playable soldiers, resulting in",
-    "default MP lobby page being Virtual, not BLUFOR/OPFOR/Independent.",
-    "Fix it by cut-pasting (ctrl-x, ctrl-v) the virtual units, so they're",
-    "last again in the global ordering of units."
-];
+if (_units isEqualTo [] || _systems isEqualTo []) exitWith _pass;
 
-if (isNil "_fail") then {
-    [["Playable unit ordering", true]];
+private _unit_id = selectMin ((_units apply { get3DENEntityId _x }) - [-1]);
+if (isNil "_unit_id") exitWith _pass;
+
+private _systems_playable = _systems select {
+    (_x get3DENAttribute "ControlMP") isEqualTo [true]
+};
+if (_systems_playable isEqualTo []) exitWith _pass;
+
+private _system_id = selectMin ((_systems_playable apply { get3DENEntityId _x }) - [-1]);
+
+if (_unit_id > _system_id) then {
+    [["Playable unit ordering", false, [_ent], [
+        "Virtual entities were placed before actual playable soldiers.",
+        "This can happen if you place Virtual Spectator / Headless Client logic",
+        "entities or modules *before* you place playable soldiers, resulting in",
+        "default MP lobby page being Virtual, not BLUFOR/OPFOR/Independent.",
+        "Fix it by cut-pasting (ctrl-x, ctrl-v) the virtual units, so they're",
+        "last again in the global ordering of units."
+    ]]];
 } else {
-    [["Playable unit ordering", false, [_ent], _msg]];
+    [] call _pass;
 };
