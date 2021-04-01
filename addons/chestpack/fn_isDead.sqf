@@ -1,3 +1,2 @@
-!alive _this
-|| {lifeState _this == "INCAPACITATED"}
+!(lifeState _unit in ["HEALTHY", "INJURED"])
 || {_this getVariable ["ACE_isUnconscious", false]};
