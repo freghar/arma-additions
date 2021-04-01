@@ -360,25 +360,6 @@ if (isNil "zen_custom_modules_fnc_register") exitWith {};
 
 [
     "A3AA",
-    "End Mission - Won",
-    {
-        { ["stop", cntr_exportPath] call cntr_fnc_export } remoteExecCall ["call", 2];
-        ["end1", true] remoteExec ["BIS_fnc_endMission"];
-    },
-    "\a3\Modules_F_Curator\Data\portraitEndMission_ca.paa"
-] call zen_custom_modules_fnc_register;
-[
-    "A3AA",
-    "End Mission - Lost",
-    {
-        { ["stop", cntr_exportPath] call cntr_fnc_export } remoteExecCall ["call", 2];
-        ["end1", false] remoteExec ["BIS_fnc_endMission"];
-    },
-    "\a3\Modules_F_Curator\Data\portraitEndMission_ca.paa"
-] call zen_custom_modules_fnc_register;
-
-[
-    "A3AA",
     "Move respawn",
     {
         params ["_pos", "_unit"];
