@@ -114,6 +114,7 @@ Features
   * **difficulties** - misc Arma difficulty (Regular/Veteran) tweaks for convenience, no effect when Custom is used
   * **dummy_mission_deps** - provides legacy entries for mission addons[], so older/existing missions load without errors
   * **flag_insignia** - vanilla "country flags" used for map markers, but now available as uniform insignia
+  * **invisible_spotter** - floating invisible unit capable of soldier-like target spotting, to be grouped into an existing AI group
   * **max_gun_elev** - no angle limitation on soldier aiming upwards/downwards
   * **portable_boat** - a boat in a backpack, what more do you want? .. unpack/repack like a mortar, cool for specop missions
   * **puffy_smoke** - smoke hand/rifle grenades are slightly better, but not as cartoonish as ACE optionals/particles
