@@ -46,6 +46,7 @@ Features
   * **crew_in_immobile** - makes AI crew stay inside a vehicle with destroyed wheels and get out only if explosion is imminent
   * **dynamic_skill** - the dynamic AI skill logic itself
   * **enter_buildings** - adjustment of indoor preferences, making AI more likely go through buildings to their WP destinations
+  * **forget_targets** - makes AI more likely to follow waypoints by not chasing old enemy sightings
   * **level_presets** - CfgAILevelPresets tuning to make Regular/Veteran difficulties use 1.0 AI skill scaling
 * **ares_extras** - additions to (former) Ares, then Achilles, now ZEN
   * **Forget enemies** - incredibly useful if AI suddenly spots sneaky players and you don't want to break the immersion
