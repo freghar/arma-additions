@@ -1,11 +1,11 @@
 [
     "a3aa_ai_dynamic_skill_preset",
     "LIST",
-    ["Dynamic skill preset", "A flavor to the dynamic skill updating, decides which skill values to set, on what dynamic\nsituations those values depend, etc.\n\nFairly hardcore = AI aim like noobish players, expected K:D for a skilled player is ~3.\nFun easy = AI are a set dressing, give players plenty of time to shoot, K:D at ~15\nStatic 0.5 = skills are set to values that emulate vanilla 0.5 skill (nullifying CfgAISkill changes)\nNo change = do nothing, don't start up dynamic skill logic (note: custom CfgAISkill is in effect!)"],
+    ["Dynamic skill preset", "A flavor to the dynamic skill updating, decides which skill values to set, on what dynamic\nsituations those values depend, etc.\n\nFairly hardcore = AI aim like noobish players, expected K:D for a skilled player is ~3.\nFun easy = AI are a set dressing, give players plenty of time to shoot, K:D at ~15\nCustom function = define your own a3aa_ai_dynamic_skill_custom function\nNo change = do nothing, don't start up dynamic skill logic (note: custom CfgAISkill is in effect!)"],
     ["Arma Additions", "AI"],
     [
-        ["hard","easy","static_vanilla", "nochange"],
-        ["Fairly hardcore","Fun easy","Static 0.5 everything","No change"],
+        ["hard","easy","custom","nochange"],
+        ["Fairly hardcore","Fun easy","Custom function","No change"],
         0
     ],     /* default */
     true   /* isGlobal */
@@ -30,9 +30,13 @@ a3aa_ai_dynamic_skill_units_consumable = [];
             a3aa_ai_dynamic_skill_fnc_calcSkills =
                 a3aa_ai_dynamic_skill_fnc_presetEasy;
         };
-        case "static_vanilla": {
+        case "custom": {
+            if (isNil "a3aa_ai_dynamic_skill_custom") then {
+                a3aa_ai_dynamic_skill_custom =
+                    { [0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5] };
+            };
             a3aa_ai_dynamic_skill_fnc_calcSkills =
-                a3aa_ai_dynamic_skill_fnc_presetStaticVanilla;
+                compileFinal "call a3aa_ai_dynamic_skill_custom";
         };
         default {
             a3aa_ai_dynamic_skill_fnc_calcSkills = nil;

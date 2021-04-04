@@ -37,3 +37,18 @@ erroneously documented on some BI wiki pages.
 
 See BI wiki for more info:
 https://community.bistudio.com/wiki/server.armaprofile#Arma_3
+
+...
+
+You can also use a custom function (CODE), executed regularly on every soldier,
+for figuring out what skills units should have. Simply set the dynamic skill
+preset to "Custom function" and define
+```sqf
+a3aa_ai_dynamic_skill_custom = {
+    // or whatever custom logic you want
+    [0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5]
+};
+```
+The function must return an array of numbers representing skills the evaluated
+soldier should have. The array uses skill order listed on the
+[BI wiki page for skill](https://community.bistudio.com/wiki/skill).
