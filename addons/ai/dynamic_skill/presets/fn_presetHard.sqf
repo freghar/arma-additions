@@ -35,14 +35,12 @@ if (_veh != _unit && {_unit in [driver _veh, gunner _veh, commander _veh]}) then
  */
 if (_unit call a3aa_ai_dynamic_skill_fnc_isGuerrilla) then {
     _aimingShake = 0.4;
+    _aimingSpeed = 0.4;
 } else {
     _aimingShake = 0.9;  /* 1.0 seems to do unnatural insta-headshot-kills */
+    _aimingSpeed = 0.95;
 };
-/* some hidden overrides for manual tuning */
-if (!isNil "a3aa_ai_dynamic_skill_easymode") then { _aimingShake = 0.4 };
-if (!isNil "a3aa_ai_dynamic_skill_hardmode") then { _aimingShake = 0.9 };
 
-_aimingSpeed = 0.95;
 _endurance = 1.0;
 _spotDistance = 1.0;
 
