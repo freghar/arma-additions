@@ -31,6 +31,7 @@ class CfgFunctions {
             class classKindOf;
             class preloadFinishedVar { preInit = 1; };
             class balancePerFrame;
+            class balancePerFrameCondition;
         };
     };
 };
