@@ -29,7 +29,6 @@ class CfgFunctions {
             file = "\a3aa\ai\dynamic_skill\presets";
             class presetHard;
             class presetEasy;
-            class isGuerrilla;
         };
     };
 };

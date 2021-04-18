@@ -1,3 +1,7 @@
+/*
+ * true if a passed unit is considered a "resistance" / "guerrilla" force
+ * (less skilled than a regular army)
+ */
 (faction _this) in [
     "BLU_G_F",
     "IND_G_F",

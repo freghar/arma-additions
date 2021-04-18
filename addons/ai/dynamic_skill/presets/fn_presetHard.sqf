@@ -33,7 +33,7 @@ if (_veh != _unit && {_unit in [driver _veh, gunner _veh, commander _veh]}) then
 /*
  * give slight Parkinson's to guerrilla factions when shooting
  */
-if (_unit call a3aa_ai_dynamic_skill_fnc_isGuerrilla) then {
+if (_unit call a3aa_fnc_isGuerrilla) then {
     _aimingShake = 0.4;
     _aimingSpeed = 0.4;
 } else {
