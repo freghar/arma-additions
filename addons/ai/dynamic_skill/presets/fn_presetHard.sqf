@@ -56,6 +56,11 @@ _spotTime = switch (behaviour _unit) do {
     default { 0.2 };
 };
 
+/* nerf guerrillas a bit when snap-shooting */
+if (_unit call a3aa_fnc_isGuerrilla && _spotTime > 0.9) then {
+    _spotTime = 0.85;
+};
+
 _courage = 0.6;   /* allows retreat when under fire */
 _reloadSpeed = 1.0;
 _commanding = 1.0;
