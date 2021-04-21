@@ -8,7 +8,9 @@
         ["Fairly hardcore","Fun easy","Custom function","No change"],
         0
     ],     /* default */
-    true   /* isGlobal */
+    true,  /* isGlobal */
+    nil,   /* script */
+    true   /* needRestart */
 ] call CBA_settings_fnc_init;
 
 /*

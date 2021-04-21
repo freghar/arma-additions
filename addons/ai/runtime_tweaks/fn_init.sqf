@@ -4,7 +4,9 @@
     ["Crew stays in immobile", "Let AI vehicle crew stay inside an otherwise immobile vehicle (wheels destroyed).\nIf the vehicle takes critical damage, the crew still dismounts."],
     ["Arma Additions", "AI"],
     true,  /* default */
-    true   /* isGlobal */
+    true,  /* isGlobal */
+    nil,   /* script */
+    true   /* needRestart */
 ] call CBA_settings_fnc_init;
 
 [
@@ -25,7 +27,9 @@
     ["Ensure alive group leader", "When a group leader dies, it takes forever (~30 seconds) for the group to realize it and switch to a new one.\nThis is time spent holding in position, doing nothing. Try to find a new alive leader and switch to it as soon\nas the current one dies, speeding up AI combat movement."],
     ["Arma Additions", "AI"],
     true,  /* default */
-    true   /* isGlobal */
+    true,  /* isGlobal */
+    nil,   /* script */
+    true   /* needRestart */
 ] call CBA_settings_fnc_init;
 
 [
@@ -38,7 +42,9 @@
         ["Leave enabled","Disable for trained armies","Disable for all"],
         0
     ],     /* default */
-    true   /* isGlobal */
+    true,  /* isGlobal */
+    nil,   /* script */
+    true   /* needRestart */
 ] call CBA_settings_fnc_init;
 
 

@@ -9,7 +9,9 @@
         60,   /* default slider */
         0     /* nr. of decimal digits */
     ],     /* default */
-    true   /* isGlobal */
+    true,  /* isGlobal */
+    nil,   /* script */
+    true   /* needRestart */
 ] call CBA_settings_fnc_init;
 
 

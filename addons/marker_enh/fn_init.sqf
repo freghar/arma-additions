@@ -4,7 +4,9 @@
     ["Enable", "Allow rotating map markers via shift + mouse drag.\nAllow moving map markers via alt + mouse drag.\n\nAutomatically disabled when using ACE, use ACE Markers."],
     ["Arma Additions", "Marker Enhancer"],
     true,  /* default */
-    true   /* isGlobal */
+    true,  /* isGlobal */
+    nil,   /* script */
+    true   /* needRestart */
 ] call CBA_settings_fnc_init;
 
 ["CBA_settingsInitialized", {

@@ -4,7 +4,9 @@
     ["Default to per-player insignia", "When mission does not define any Extended Gear insignia,\nuse a player-defined one from profileNamespace."],
     ["Arma Additions", "Editor Extensions - Extended Gear"],
     true,  /* default */
-    true   /* isGlobal */
+    true,  /* isGlobal */
+    nil,   /* script */
+    true   /* needRestart */
 ] call CBA_settings_fnc_init;
 
 ([] call a3aa_ee_extended_gear_fnc_collectCfgInsigniaAsSettings) params ["_insignia_classes", "_insignia_names"];
