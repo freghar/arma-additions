@@ -53,3 +53,11 @@ class CfgVehicles {
         SPOTTER_ATTRS
     };
 };
+
+class CfgAddons {
+    class PreloadAddons {
+        class a3aa_mtc_invisible_spotter {
+            list[] = { "a3aa_mtc_invisible_spotter" };
+        };
+    };
+};

@@ -42,3 +42,11 @@ class CfgVehicles {
         canHideBodies = 1;
     };
 };
+
+class CfgAddons {
+    class PreloadAddons {
+        class a3aa_mtc_silent_op {
+            list[] = { "a3aa_mtc_silent_op" };
+        };
+    };
+};

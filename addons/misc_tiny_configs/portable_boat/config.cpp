@@ -55,3 +55,11 @@ class CfgVehicles {
         };
     };
 };
+
+class CfgAddons {
+    class PreloadAddons {
+        class a3aa_mtc_portable_boat {
+            list[] = { "a3aa_mtc_portable_boat" };
+        };
+    };
+};
