@@ -22,7 +22,7 @@ private _addons = ("true" configClasses (configFile >> "CfgPatches")) apply { co
 removeAllCuratorAddons _logic;
 _logic addCuratorAddons _addons;
 
-private _onjip = if (_forclient == 0) then { true } else { false };
+private _onjip = if (_forclient isEqualTo 0) then { true } else { false };
 
 _logic remoteExec ["a3aa_insta_zeus_fnc_mkCuratorAddEHs", _forclient, _onjip];
 
