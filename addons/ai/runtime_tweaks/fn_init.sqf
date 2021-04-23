@@ -22,9 +22,9 @@
 ] call CBA_settings_fnc_init;
 
 [
-    "a3aa_ai_alive_group_leader",
+    "a3aa_ai_ungroup_dead",
     "CHECKBOX",
-    ["Ensure alive group leader", "When a group leader dies, it takes forever (~30 seconds) for the group to realize it and switch to a new one.\nThis is time spent holding in position, doing nothing. Try to find a new alive leader and switch to it as soon\nas the current one dies, speeding up AI combat movement."],
+    ["Ungroup dead soldiers", "When a group leader dies, it takes forever (~30 seconds) for the group to realize it and switch to a new one.\nThis is time spent holding in position, doing nothing. Similarly, when a non-leader member dies, it delays\nthe group if it's waiting on that member to do a bounding move.\nFix both by removing dead soldiers from their groups immediately on death."],
     ["Arma Additions", "AI"],
     true,  /* default */
     true,  /* isGlobal */
@@ -64,23 +64,22 @@
         } forEach ["Car", "Air", "Tank", "Ship"];
     };
 
-    if (a3aa_ai_alive_group_leader) then {
+    if (a3aa_ai_ungroup_dead && isServer) then {
         /*
          * some CfgVehicles override CBA XEHs, for which CBA adds workarounds
          * via always-running loops, but only for 'init', so handle this some
          * other way than a 'killed' EH
          */
-        addMissionEventHandler ["EntityKilled", {
-            params ["_unit"];
-            private _grp = group _unit;
-            if (leader _grp == _unit) then {
-                private _units = units _grp;
-                private _idx = _units findIf { alive _x };
-                if (_idx != -1) then {
-                    _grp selectLeader (_units select _idx);
+        a3aa_ai_ungroup_dead_grp = createGroup civilian;
+        if (!isNull a3aa_ai_ungroup_dead_grp) then {
+            addMissionEventHandler ["EntityKilled", {
+                params ["_unit"];
+                if (isPlayer _unit || _unit in playableUnits) exitWith {};
+                if (_unit isKindOf "CAManBase") then {
+                    [_unit] joinSilent a3aa_ai_ungroup_dead_grp;
                 };
-            };
-        }];
+            }];
+        };
     };
 
     if (a3aa_ai_disable_voice != "nobody") then {
