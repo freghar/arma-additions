@@ -28,6 +28,10 @@ switch true do {
     case (_this in (all3DENEntities select 5)): {
         _info = format ["marker:'%1'", _this];
     };
+    /* sides */
+    case (_this isEqualType west): {
+        _info = format ["side:'%1'", _this];
+    };
     /* all other */
     default {
         _info = format ["unknown:'%1'", _this];

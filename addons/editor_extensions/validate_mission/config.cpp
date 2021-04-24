@@ -23,6 +23,7 @@ class CfgFunctions {
             class checkAcreIds;
             class checkOrdering;
             class checkPersistentCallsign;
+            class checkRespawnMarkers;
         };
     };
 };
@@ -59,4 +60,5 @@ class Extended_PreInit_EventHandlers {
     REGISTER(checkAcreIds);
     REGISTER(checkOrdering);
     REGISTER(checkPersistentCallsign);
+    REGISTER(checkRespawnMarkers);
 };
