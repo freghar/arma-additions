@@ -30,17 +30,8 @@ if (_veh != _unit && {_unit in [driver _veh, gunner _veh, commander _veh]}) then
     _aimingAccuracy = 0.5;
 };
 
-/*
- * give slight Parkinson's to guerrilla factions when shooting
- */
-if (_unit call a3aa_fnc_isGuerrilla) then {
-    _aimingShake = 0.4;
-    _aimingSpeed = 0.4;
-} else {
-    _aimingShake = 0.9;  /* 1.0 seems to do unnatural insta-headshot-kills */
-    _aimingSpeed = 0.95;
-};
-
+_aimingShake = 0.9;  /* 1.0 seems to do unnatural insta-headshot-kills */
+_aimingSpeed = 0.95;
 _endurance = 1.0;
 _spotDistance = 1.0;
 
@@ -54,11 +45,6 @@ _spotTime = switch (behaviour _unit) do {
     case "AWARE":  { 0.4 };
     case "COMBAT": { 0.95 };
     default { 0.2 };
-};
-
-/* nerf guerrillas a bit when snap-shooting */
-if (_unit call a3aa_fnc_isGuerrilla && _spotTime > 0.9) then {
-    _spotTime = 0.85;
 };
 
 _courage = 0.6;   /* allows retreat when under fire */

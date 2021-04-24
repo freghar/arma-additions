@@ -34,14 +34,10 @@
 
 [
     "a3aa_ai_disable_voice",
-    "LIST",
+    "CHECKBOX",
     ["Disable AI voices", "Make AI soldiers silent (not shout orders out loud). Useful for a more suprising/deadly experience."],
     ["Arma Additions", "AI"],
-    [
-        ["nobody","regulars","all"],
-        ["Leave enabled","Disable for trained armies","Disable for all"],
-        0
-    ],     /* default */
+    true,  /* default */
     true,  /* isGlobal */
     nil,   /* script */
     true   /* needRestart */
@@ -82,14 +78,12 @@
         };
     };
 
-    if (a3aa_ai_disable_voice != "nobody") then {
+    if (a3aa_ai_disable_voice) then {
         [
             "CAManBase",
             "InitPost",
             {
                 params ["_unit"];
-                if (a3aa_ai_disable_voice == "regulars"
-                    && _unit call a3aa_fnc_isGuerrilla) exitWith {};
                 _unit setSpeaker "NoVoice";
             },
             true,

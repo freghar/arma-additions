@@ -32,7 +32,6 @@ class CfgFunctions {
             class preloadFinishedVar { preInit = 1; };
             class balancePerFrame;
             class balancePerFrameCondition;
-            class isGuerrilla;
         };
     };
 };
