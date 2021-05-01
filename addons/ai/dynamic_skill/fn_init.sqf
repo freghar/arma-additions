@@ -6,7 +6,7 @@
     [
         ["hard","easy","custom","nochange"],
         ["Fairly hardcore","Fun easy","Custom function","No change"],
-        0
+        1
     ],     /* default */
     true,  /* isGlobal */
     nil,   /* script */
