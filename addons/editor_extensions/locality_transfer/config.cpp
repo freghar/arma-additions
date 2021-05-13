@@ -63,6 +63,15 @@ class CfgVehicles {
                 typeName = "NUMBER";
                 tooltip = "How many seconds to wait between group locality transfers. Increase to 15 or more if you have cba_network_loadoutValidation disabled, otherwise some soldiers might lose parts of their loadout (and/or appear naked) - known long-standing BI bug.\n\nIf set to 0, waiting for transfer completion still happens (only 1 transfer ongoing at a time), but no extra delay is inserted.";
             };
+            class a3aa_ee_locality_transfer_delay_after_spawn {
+                property = "a3aa_ee_locality_transfer_delay_after_spawn";
+                control = "EditShort";
+                displayName = "Delay after spawn";
+                expression = "_this setVariable [""%s"",_value]";
+                defaultValue = "20";
+                typeName = "NUMBER";
+                tooltip = "How many seconds to wait after a unit/group creation, before it is considered for a transfer. Setting it too low (0) causes glitches like drivers leaving vehicles (because Arma), setting it too high may be annoying to GMs (needing to wait). The default 20 seconds give a GM enough time to ie. drag a freshly spawned airplane into the air (where it continues to fly) without being too annoying of a delay.\n\nNote that this is a *minimum* guaranteed delay, the realistic delay will depend on server load and amount of groups to be transfered.";
+            };
             class a3aa_ee_locality_transfer_distribute {
                 property = "a3aa_ee_locality_transfer_distribute";
                 control = "Combo";
