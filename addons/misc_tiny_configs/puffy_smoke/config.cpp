@@ -17,7 +17,9 @@ class CfgCloudlets {
     class SmokeShellWhite : Default {
         rubbing = 0.02;  /* wind effect, default 0.05 */
         sizeCoef = 1.5;
-        moveVelocity[] = {0.4, 0.2, 0.2};
-        MoveVelocityVar[] = {0.5, 0.5, 0.5};
+        lifeTime = 30;     /* default 20 */
+        interval = 0.02;   /* default 0.03 */
+        moveVelocity[] = {0.0, 0.3, 0.0};
+        MoveVelocityVar[] = {0.6, 0.2, 0.6};
     };
 };
