@@ -66,16 +66,17 @@
          * via always-running loops, but only for 'init', so handle this some
          * other way than a 'killed' EH
          */
-        a3aa_ai_ungroup_dead_grp = createGroup civilian;
-        if (!isNull a3aa_ai_ungroup_dead_grp) then {
-            addMissionEventHandler ["EntityKilled", {
-                params ["_unit"];
-                if (isPlayer _unit || _unit in playableUnits) exitWith {};
-                if (_unit isKindOf "CAManBase") then {
-                    [_unit] joinSilent a3aa_ai_ungroup_dead_grp;
+        a3aa_ai_ungroup_dead_grp = grpNull;
+        addMissionEventHandler ["EntityKilled", {
+            params ["_unit"];
+            if (isPlayer _unit || _unit in playableUnits) exitWith {};
+            if (_unit isKindOf "CAManBase") then {
+                if (isNull a3aa_ai_ungroup_dead_grp) then {
+                    a3aa_ai_ungroup_dead_grp = createGroup civilian;
                 };
-            }];
-        };
+                [_unit] joinSilent a3aa_ai_ungroup_dead_grp;
+            };
+        }];
     };
 
     if (a3aa_ai_disable_voice) then {
