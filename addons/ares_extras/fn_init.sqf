@@ -74,39 +74,28 @@ if (isNil "zen_custom_modules_fnc_register") exitWith {};
 
 [
     "A3AA",
-    "Flee",
+    "Force move through WPs",
     {
-        [_this select 1, "Select groups.", {
+        [_this select 1, "Select pushing groups.", {
             {
                 [_x, {
-                    private _isfleeing = _this getVariable "a3aa_ares_extras_fleeing";
-                    if (isNil "_isfleeing") then {
-                        _this setVariable ["a3aa_ares_extras_fleeing", true, true];
+                    if (count waypoints _this <= 1) exitWith {};
+                    {
+                        _x setWaypointBehaviour "AWARE";
+                        _x setWaypointCombatMode "BLUE";
+                        _x setWaypointSpeed "FULL";
+                        _x setWaypointForceBehaviour true;
+                    } forEach waypoints _this;
+                    waitUntil {
+                        private _leader = leader _this;
+                        private _targets = _leader targets [true];
                         {
-                            _x setUnitPos "UP";
-                            _x disableAI "AUTOCOMBAT";
-                            _x disableAI "AUTOTARGET";
-                            _x disableAI "TARGET";
-                            _x disableAI "SUPPRESSION";
-                            { _this forgetTarget _x } forEach (_x targets []);
-                        } forEach units _this;
-                        _this setCombatMode "BLUE";
-                        _this setSpeedMode "FULL";
-                        _this spawn {
-                            sleep 120;
-                            {
-                                _x enableAI "AUTOCOMBAT";
-                                _x enableAI "AUTOTARGET";
-                                _x enableAI "TARGET";
-                                _x enableAI "SUPPRESSION";
-                                _x setUnitPos "AUTO";
-                            } forEach units _this;
-                            _this setCombatMode "YELLOW";
-                            _this setSpeedMode "NORMAL";
-                            _this setVariable ["a3aa_ares_extras_fleeing", nil, true];
-                        };
+                            _this forgetTarget _x;
+                        } forEach _targets;
+                        /* stop on no waypoints */
+                        !local _leader || count waypoints _this <= 1;
                     };
-                }] remoteExec ["call", leader _x];
+                }] remoteExec ["spawn", leader _x];
             } forEach _this;
         }, "groups"] call a3aa_ares_extras_fnc_selectUnits;
     },
@@ -151,24 +140,6 @@ if (isNil "zen_custom_modules_fnc_register") exitWith {};
         }, "groups"] call a3aa_ares_extras_fnc_selectUnits;
     },
     "\a3\Ui_f\data\IGUI\Cfg\simpleTasks\types\meet_ca.paa"
-] call zen_custom_modules_fnc_register;
-
-[
-    "A3AA",
-    "Force WP Setting",
-    {
-        [_this select 1, "Select groups.", {
-            [_this, {
-                {
-                    {
-                        _x setWaypointForceBehaviour true;
-                        _x setWaypointBehaviour "AWARE";
-                    } forEach waypoints _x;
-                } forEach _this;
-            }] remoteExec ["call", 2];
-        }] call a3aa_ares_extras_fnc_selectUnits;
-    },
-    "\a3\3DEN\Data\CfgWaypoints\Move_ca.paa"
 ] call zen_custom_modules_fnc_register;
 
 [
