@@ -26,7 +26,7 @@ if (_veh != _unit && {_unit in [driver _veh, gunner _veh, commander _veh]}) then
     _aimingAccuracy = 0.3;
 };
 
-_aimingShake = 0.4;
+_aimingShake = 0.80;
 _aimingSpeed = 0.25;
 _endurance = 1.0;
 _spotDistance = 0.7;
