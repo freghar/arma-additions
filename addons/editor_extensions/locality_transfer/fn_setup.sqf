@@ -88,6 +88,12 @@ a3aa_ee_locality_transfer_hcdata = createHashMap;
                     };
                     if (_spawn_delay_end > diag_tickTime) exitWith {};
 
+                    /* if there's Curator remote controlling any unit in the grp, abort */
+                    if (_units findIf {
+                            private _rc = _x getVariable "bis_fnc_moduleremotecontrol_owner";
+                            !isNil "_rc";
+                        } != -1) exitWith {};
+
                     /* if we have >1 HCs and the group is not on a HC, move it & wait */
                     if (_hcs isNotEqualTo []) exitWith {
                         if (groupOwner _grp in _hcs) exitWith {};  /* next! */
