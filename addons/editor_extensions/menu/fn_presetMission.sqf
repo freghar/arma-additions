@@ -22,10 +22,10 @@ set3DENMissionAttributes [
     ["Multiplayer", "AIKills", false],
 
     ["Multiplayer", "ReviveMode", 1],            // enabled
-    ["Multiplayer", "ReviveRequiredTrait", 1],   // medic only
-    ["Multiplayer", "ReviveRequiredItems", 1],   // big Medikit
-    ["Multiplayer", "ReviveDelay", 60],          // how long to hold
-    ["Multiplayer", "ReviveMedicSpeedMultiplier", 1],
+    ["Multiplayer", "ReviveRequiredTrait", 0],   // anyone
+    ["Multiplayer", "ReviveRequiredItems", 2],   // big Medikit or FirstAid kit
+    ["Multiplayer", "ReviveDelay", 40],          // how long to hold
+    ["Multiplayer", "ReviveMedicSpeedMultiplier", 2],
     ["Multiplayer", "ReviveForceRespawnDelay", 3],
     ["Multiplayer", "ReviveUnconsciousStateMode", 0],  // basic
     ["Multiplayer", "ReviveBleedOutDelay", 300]  // how long before death
