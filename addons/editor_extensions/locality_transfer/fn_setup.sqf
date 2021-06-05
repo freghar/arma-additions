@@ -18,6 +18,18 @@ if (_statistics) then {
 
 a3aa_ee_locality_transfer_hcdata = createHashMap;
 
+/* set timer end on unit death, see a3aa_ee_locality_transfer_timeout below */
+addMissionEventHandler ["EntityKilled", {
+    params ["_unit"];
+    if (isPlayer _unit || _unit in playableUnits) exitWith {};
+    if (_unit isKindOf "CAManBase") then {
+        _unit setVariable [
+            "a3aa_ee_locality_transfer_timeout",
+            diag_tickTime + 5
+        ];
+    };
+}];
+
 0 = [_wait_between, _spawn_delay, _distribute, _fallback] spawn {
     params ["_wait_between", "_spawn_delay", "_distribute", "_fallback"];
 
@@ -74,7 +86,6 @@ a3aa_ee_locality_transfer_hcdata = createHashMap;
                     if (isNull _grp) exitWith {};
                     private _units = units _grp;
                     if (_units isEqualTo []) exitWith {};
-                    if (_units findIf { isPlayer _x } != -1) exitWith {};
                     if (_grp getVariable ["a3aa_ee_locality_transfer_exclude", false]) exitWith {};
 
                     /* if we haven't seen it before or if it's too soon, abort */
@@ -88,11 +99,25 @@ a3aa_ee_locality_transfer_hcdata = createHashMap;
                     };
                     if (_spawn_delay_end > diag_tickTime) exitWith {};
 
-                    /* if there's Curator remote controlling any unit in the grp, abort */
-                    if (_units findIf {
-                            private _rc = _x getVariable "bis_fnc_moduleremotecontrol_owner";
-                            !isNil "_rc";
-                        } != -1) exitWith {};
+                    /* per-unit checks + aborts */
+                    private _per_unit_match = _units findIf {
+                        /* is a player unit */
+                        if (isPlayer _x || _x in playableUnits) then { breakWith true };
+                        /* remote controlled by a Curator */
+                        private _rc = _x getVariable "bis_fnc_moduleremotecontrol_owner";
+                        if (!isNil "_rc") then {
+                            _x setVariable [
+                                "a3aa_ee_locality_transfer_timeout",
+                                diag_tickTime + 5
+                            ];
+                            breakWith true;
+                        };
+                        /* was remote controlled, waiting for cooldown */
+                        private _timeout = _x getVariable "a3aa_ee_locality_transfer_timeout";
+                        if (!isNil "_timeout" && {_timeout > diag_tickTime}) then { breakWith true };
+                        false;
+                    };
+                    if (_per_unit_match isNotEqualTo -1) exitWith {};
 
                     /* if we have >1 HCs and the group is not on a HC, move it & wait */
                     if (_hcs isNotEqualTo []) exitWith {
