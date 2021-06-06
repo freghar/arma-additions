@@ -10,7 +10,6 @@ if (isNil "a3aa_ee_ambient_anim_combatwatch" && _exitcombat) then {
             a3aa_ee_ambient_anim_combatwatch params ["_synced", "_active"];
             /* remove already "activated" soldiers from watched ones */
             private _remain = _synced - _active;
-            // TODO after v2.03: if _remain is empty, remove _thisEventHandler
             a3aa_ee_ambient_anim_combatwatch = [_remain, []];
             _remain;
         },

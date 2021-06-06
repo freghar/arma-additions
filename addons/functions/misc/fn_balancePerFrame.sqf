@@ -40,41 +40,6 @@
  * ] call a3aa_fnc_balancePerFrame;
  */
 
-[
-    {
-        (_this select 0) params ["_args", "_buff", "_idx", "_endtime"];
-        _args params ["_init", "_process", ["_maxtime", 100000]];
-        if (_idx < 0) then {
-            /* refill buffer */
-            (_this select 0) set [1, _init call BIS_fnc_call];
-            (_this select 0) set [2, 0];
-            (_this select 0) set [3, diag_tickTime + _maxtime];
-        } else {
-            private _time_left = (_endtime - diag_tickTime) max 0;
-            private _items_left = count _buff - _idx;
-            private _next = _idx + ceil (_items_left / ((diag_fps * _time_left) max 1));
-            for "_i" from _idx to (_next - 1) do {
-                if (_process isEqualType []) then {
-                    [_buff select _i, _process select 0] call (_process select 1);
-                } else {
-                    (_buff select _i) call _process;
-                };
-            };
-            if (_next >= count _buff) then { _next = -1 };
-            (_this select 0) set [2, _next];
-        };
-    },
-    0,
-    [
-        _this,
-        [],     /* buffer returned by _init, passed to _process */
-        -1,     /* current index into the buffer */
-        0       /* diag_tickTime by which the buffer needs to be processed */
-    ]
-] call CBA_fnc_addPerFrameHandler;
-
-
-#ifdef use_after_arma_v2.03
 addMissionEventHandler [
     "EachFrame",
     {
@@ -107,4 +72,3 @@ addMissionEventHandler [
         0       /* diag_tickTime by which the buffer needs to be processed */
     ]
 ];
-#endif

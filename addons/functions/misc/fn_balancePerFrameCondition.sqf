@@ -9,43 +9,6 @@
  * as with balancePerFrame, both CODEs can be given user arguments
  */
 
-[
-    {
-        (_this select 0) params ["_args", "_buff", "_idx"];
-        _args params ["_init", "_process"];
-        if (_idx < 0) then {
-            /* refill buffer */
-            (_this select 0) set [1, _init call BIS_fnc_call];
-            (_this select 0) set [2, 0];
-        } else {
-            private ["_ret", "_next"];
-            private _item = _buff select _idx;
-            if (_process isEqualType []) then {
-                _ret = [_item, _process select 0] call (_process select 1);
-            } else {
-                _ret = _item call _process;
-            };
-            if (!isNil "_ret" && {_ret isEqualTo false}) then {
-                _next = _idx;
-            } else {
-                _next = _idx + 1;
-                if (_next >= count _buff) then {
-                    _next = -1;
-                };
-            };
-            (_this select 0) set [2, _next];
-        };
-    },
-    0,
-    [
-        _this,
-        [],     /* buffer returned by _init, passed to _process */
-        -1      /* current index into the buffer */
-    ]
-] call CBA_fnc_addPerFrameHandler;
-
-
-#ifdef use_after_arma_v2.03
 addMissionEventHandler [
     "EachFrame",
     {
@@ -76,4 +39,3 @@ addMissionEventHandler [
         -1      /* current index into the buffer */
     ]
 ];
-#endif
