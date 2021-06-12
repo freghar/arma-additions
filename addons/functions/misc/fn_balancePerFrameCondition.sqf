@@ -20,15 +20,19 @@ addMissionEventHandler [
             _thisArgs set [2, 0];
         } else {
             private ["_ret", "_next"];
+            private _item = _buff select _idx;
             if (_process isEqualType []) then {
-                _ret = [_buff select _i, _process select 0] call (_process select 1);
+                _ret = [_item, _process select 0] call (_process select 1);
             } else {
-                _ret = (_buff select _i) call _process;
+                _ret = _item call _process;
             };
             if (!isNil "_ret" && {_ret isEqualTo false}) then {
                 _next = _idx;
             } else {
-                _next = if (_next >= count _buff) then { -1 } else { _idx + 1 };
+                _next = _idx + 1;
+                if (_next >= count _buff) then {
+                    _next = -1;
+                };
             };
             _thisArgs set [2, _next];
         };
