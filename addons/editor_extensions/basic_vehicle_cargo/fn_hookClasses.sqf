@@ -13,3 +13,5 @@ HOOK_EH(Tank);
 HOOK_EH(Helicopter);
 HOOK_EH(Plane);
 HOOK_EH(Ship);
+
+deleteVehicle _this;
