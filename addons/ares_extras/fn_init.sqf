@@ -80,10 +80,12 @@ if (isNil "zen_custom_modules_fnc_register") exitWith {};
             {
                 [_x, {
                     if (count waypoints _this <= 1) exitWith {};
+                    private _cmode = combatMode _this;
+                    _this setCombatMode "BLUE";
+                    private _smode = speedMode _this;
+                    _this setSpeedMode "FULL";
                     {
                         _x setWaypointBehaviour "AWARE";
-                        _x setWaypointCombatMode "BLUE";
-                        _x setWaypointSpeed "FULL";
                         _x setWaypointForceBehaviour true;
                     } forEach waypoints _this;
                     waitUntil {
@@ -93,8 +95,10 @@ if (isNil "zen_custom_modules_fnc_register") exitWith {};
                             _this forgetTarget _x;
                         } forEach _targets;
                         /* stop on no waypoints */
-                        !local _leader || count waypoints _this <= 1;
+                        !local _leader || currentWaypoint _this >= count waypoints _this;
                     };
+                    [_this, _cmode] remoteExec ["setCombatMode"];
+                    [_this, _smode] remoteExec ["setSpeedMode"];
                 }] remoteExec ["spawn", leader _x];
             } forEach _this;
         }, "groups"] call a3aa_ares_extras_fnc_selectUnits;
