@@ -14,8 +14,18 @@ if (!isServer) exitWith {};
  */
 params [["_forclient", 0]];
 
-private _lgroup = creategroup [sideLogic, true];
-private _logic = _lgroup createUnit ["a3aa_insta_zeus_dumb_curator", [0,0,0], [], 0, "NONE"];
+if (isNil "a3aa_insta_zeus_curator_grp") then {
+    a3aa_insta_zeus_curator_grp = createGroup [sideLogic, true];
+    a3aa_insta_zeus_curator_grp setGroupIdGlobal ["A3AA Curators"];
+};
+
+private _logic = a3aa_insta_zeus_curator_grp createUnit [
+    "a3aa_insta_zeus_dumb_curator",
+    [0,0,0],
+    [],
+    0,
+    "NONE"
+];
 
 private _addons = ("true" configClasses (configFile >> "CfgPatches")) apply { configName _x };
 //activateAddons _addons;  // doesn't seem necessary
