@@ -45,7 +45,3 @@
     true,  /* default */
     true   /* isGlobal */
 ] call CBA_settings_fnc_init;
-
-["CBA_settingsInitialized", {
-    a3aa_grasskeys_settings_initialized = true;
-}] call CBA_fnc_addEventHandler;

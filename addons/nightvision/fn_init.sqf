@@ -11,10 +11,6 @@
     true   /* isGlobal */
 ] call CBA_settings_fnc_init;
 
-["CBA_settingsInitialized", {
-    a3aa_nightvision_settings_initialized = true;
-}] call CBA_fnc_addEventHandler;
-
 if (isClass (configFile >> "CfgPatches" >> "ace_nightvision")) exitWith {};
 if (!hasInterface) exitWith {};
 

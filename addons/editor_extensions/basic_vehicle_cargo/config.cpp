@@ -13,7 +13,6 @@ class CfgPatches {
         requiredAddons[] = {
             "a3aa_ee_shared",
             "cba_settings",
-            "cba_events",
             "cba_xeh"     /* dynamic class hook from module */
         };
     };

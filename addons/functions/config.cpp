@@ -2,7 +2,9 @@ class CfgPatches {
     class a3aa_functions {
         units[] = {};
         weapons[] = {};
-        requiredAddons[] = {};
+        requiredAddons[] = {
+            "cba_events"
+        };
     };
 };
 

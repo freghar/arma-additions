@@ -6,7 +6,3 @@
     false,  /* default */
     true    /* isGlobal */
 ] call CBA_settings_fnc_init;
-
-["CBA_settingsInitialized", {
-    a3aa_ee_basic_vehicle_cargo_settings_initialized = true;
-}] call CBA_fnc_addEventHandler;

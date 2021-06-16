@@ -1,4 +1,4 @@
-if (isNil "a3aa_grasskeys_settings_initialized") exitWith {};
+if (isNil "a3aa_settings_initialized") exitWith {};
 if (!a3aa_grasskeys_enable) exitWith {};
 
 switch (_this) do {

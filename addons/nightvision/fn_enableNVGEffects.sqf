@@ -1,6 +1,6 @@
 if (isClass (configFile >> "CfgPatches" >> "ace_nightvision")) exitWith {};
 if (!hasInterface) exitWith {};
-if (isNil "a3aa_nightvision_settings_initialized") exitWith {};
+if (isNil "a3aa_settings_initialized") exitWith {};
 
 private _setup_pp = {
     params ["_type", "_prio", "_settings"];

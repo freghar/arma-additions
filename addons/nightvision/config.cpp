@@ -6,10 +6,11 @@ class CfgPatches {
         units[] = {};
         weapons[] = {};
         requiredAddons[] = {
+            "a3aa_functions",
             "A3_Weapons_F",
             "A3_Weapons_F_Exp",
-            "cba_events",
-            "cba_xeh"
+            "cba_xeh",
+            "cba_settings"
         };
     };
 };

@@ -2,7 +2,7 @@ if (!local _this) exitWith {};
 
 if (_this getVariable ["a3aa_ee_basic_vehicle_cargo_dontclear", false]) exitWith {};
 
-waitUntil { !isNil "a3aa_ee_basic_vehicle_cargo_settings_initialized" };
+waitUntil { !isNil "a3aa_settings_initialized" };
 
 clearWeaponCargoGlobal _this;
 clearMagazineCargoGlobal _this;
